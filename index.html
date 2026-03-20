@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="default" data-mode="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a" id="themeColorMeta">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NullYex">
+<title>NullYex — AI &amp; DS Batch 2025–2029</title>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@supabase/supabase-js@2" crossorigin="anonymous"></script>
+<style>
+:root{--font:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;--mono:'JetBrains Mono',monospace;}
+[data-mode="dark"]{--bg:#0a0a0a;--panel:#111114;--panel2:#16161a;--text:#f3f3f6;--muted:#8b8b93;--border:rgba(255,255,255,0.08);--borderf:rgba(255,255,255,0.15);}
+[data-theme="default"]{--accent:#7c5cff;--accentH:#6a4deb;--accentA:rgba(124,92,255,0.12);}
+[data-theme="midnight"]{--accent:#5a9cf5;--accentH:#3a7adc;--accentA:rgba(90,156,245,0.15);}
+[data-theme="forest"]{--accent:#50c878;--accentH:#38a860;--accentA:rgba(80,200,120,0.15);}
+[data-theme="berry"]{--accent:#d870e8;--accentH:#b850c8;--accentA:rgba(216,112,232,0.15);}
+[data-theme="royal"]{--accent:#f0b830;--accentH:#d09810;--accentA:rgba(240,184,48,0.15);}
+[data-theme="sunset"]{--accent:#f07050;--accentH:#d05030;--accentA:rgba(240,112,80,0.15);}
+[data-theme="ocean"]{--accent:#40c8c0;--accentH:#28a8a0;--accentA:rgba(64,200,192,0.15);}
+[data-mode="light"]{--bg:#f8f8f8;--panel:#ffffff;--panel2:#f0f0f0;--text:#0a0a0a;--muted:#666;--border:rgba(0,0,0,0.1);--borderf:rgba(0,0,0,0.2);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.5;min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;}
+.hidden{display:none!important;}
+button{cursor:pointer;font-family:inherit;}
+input,select,textarea{font-family:inherit;}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:0.6;}
+::-webkit-scrollbar{width:5px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--borderf);border-radius:9999px;}
+
+/* ── SCREENS ── */
+.screen{min-height:100dvh;display:flex;flex-direction:column;}
+
+/* ── LANDING ── */
+#landingScreen{background:var(--bg);position:relative;overflow:hidden;}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,black 20%,transparent 80%);-webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%,black 20%,transparent 80%);pointer-events:none;}
+.glow{position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,var(--accentA) 0%,transparent 65%);pointer-events:none;animation:glow 5s ease-in-out infinite;}
+@keyframes glow{0%,100%{opacity:.7;transform:translateX(-50%) scale(1);}50%{opacity:1;transform:translateX(-50%) scale(1.06);}}
+
+/* nav */
+.l-nav{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:22px 48px;border-bottom:1px solid var(--border);}
+.l-brand{display:flex;align-items:center;gap:10px;font-size:1.05rem;font-weight:700;letter-spacing:-.02em;text-decoration:none;color:var(--text);}
+.l-brand-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:blink 2.5s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+.l-nav-right{display:flex;gap:10px;align-items:center;}
+.btn-o{padding:7px 18px;border-radius:8px;font-size:.84rem;font-weight:500;border:1px solid var(--borderf);color:var(--text);background:transparent;transition:all .2s;}
+.btn-o:hover{background:var(--panel);border-color:var(--accent);}
+.btn-s{padding:7px 18px;border-radius:8px;font-size:.84rem;font-weight:600;border:none;color:#fff;background:var(--accent);transition:all .2s;}
+.btn-s:hover{background:var(--accentH);transform:translateY(-1px);}
+
+/* hero */
+.l-hero{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;text-align:center;padding:96px 24px 56px;flex:1;}
+.l-eyebrow{display:inline-flex;align-items:center;gap:7px;padding:5px 14px;border-radius:999px;background:var(--accentA);border:1px solid var(--accent);color:var(--accent);font-size:.73rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:28px;animation:fsu .5s ease both;}
+@keyframes fsu{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.l-batch{font-size:.82rem;font-family:var(--mono);color:var(--muted);letter-spacing:.15em;margin-bottom:10px;animation:fsu .5s .05s ease both;}
+.l-title{font-size:clamp(2.4rem,6.5vw,4.8rem);font-weight:700;letter-spacing:-.04em;line-height:1.05;color:var(--text);margin-bottom:8px;animation:fsu .5s .08s ease both;}
+.l-title em{font-style:normal;color:var(--accent);}
+.l-university{font-size:clamp(.9rem,2vw,1.15rem);color:var(--muted);font-weight:500;margin-bottom:10px;animation:fsu .5s .11s ease both;}
+.l-tagline{font-size:clamp(.85rem,1.5vw,.95rem);color:var(--muted);max-width:480px;line-height:1.7;margin-bottom:40px;animation:fsu .5s .14s ease both;}
+.l-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:fsu .5s .17s ease both;margin-bottom:72px;}
+.l-cta .btn-s,.l-cta .btn-o{padding:12px 28px;font-size:.92rem;}
+
+/* features */
+.l-features{position:relative;z-index:5;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;padding:0 48px 72px;animation:fsu .5s .22s ease both;}
+.feat{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:24px;transition:border-color .2s,transform .2s;}
+.feat:hover{border-color:var(--accent);transform:translateY(-3px);}
+.feat-icon{width:42px;height:42px;border-radius:12px;background:var(--accentA);display:flex;align-items:center;justify-content:center;margin-bottom:14px;color:var(--accent);font-size:1.2rem;}
+.feat-title{font-size:.92rem;font-weight:600;margin-bottom:6px;}
+.feat-desc{font-size:.8rem;color:var(--muted);line-height:1.6;}
+
+/* stats row */
+.l-stats{display:flex;gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:0 48px 56px;animation:fsu .5s .19s ease both;}
+.l-stat{flex:1;padding:22px 24px;text-align:center;border-right:1px solid var(--border);}
+.l-stat:last-child{border-right:none;}
+.l-stat-val{font-size:2rem;font-weight:700;color:var(--accent);font-family:var(--mono);line-height:1;}
+.l-stat-lbl{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:4px;font-weight:600;}
+
+/* footer */
+.l-footer{position:relative;z-index:5;padding:20px 48px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:.78rem;color:var(--muted);}
+
+/* ── AUTH SCREEN ── */
+#authScreen{align-items:center;justify-content:center;padding:24px;background:var(--bg);}
+.auth-wrap{width:100%;max-width:400px;animation:fsu .35s ease both;}
+.auth-back{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--muted);cursor:pointer;margin-bottom:28px;background:none;border:none;padding:0;transition:color .2s;}
+.auth-back:hover{color:var(--text);}
+.auth-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:36px 32px;box-shadow:0 24px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.05);}
+.auth-logo{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.auth-logo-icon{width:34px;height:34px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;}
+.auth-logo-name{font-size:1.1rem;font-weight:700;letter-spacing:-.02em;}
+.auth-title{font-size:1.45rem;font-weight:700;letter-spacing:-.03em;margin-bottom:5px;}
+.auth-sub{font-size:.84rem;color:var(--muted);margin-bottom:28px;line-height:1.5;}
+.auth-tabs{display:flex;background:var(--panel2);border-radius:10px;padding:3px;margin-bottom:24px;}
+.auth-tab{flex:1;padding:8px;border-radius:8px;border:none;background:transparent;color:var(--muted);font-size:.84rem;font-weight:500;cursor:pointer;transition:all .2s;}
+.auth-tab.active{background:var(--bg);color:var(--text);font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.4);}
+.form-group{margin-bottom:14px;}
+.form-label{display:block;font-size:.78rem;font-weight:500;margin-bottom:5px;color:var(--muted);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.inp{width:100%;padding:9px 12px;border-radius:8px;background:var(--panel2);border:1px solid var(--border);color:var(--text);font-size:.88rem;outline:none;transition:border-color .2s;}
+.inp:focus{border-color:var(--accent);}
+.inp.err{border-color:#e05050;}
+.auth-msg{border-radius:8px;padding:9px 14px;font-size:.8rem;margin-bottom:14px;display:none;}
+.auth-msg.show{display:block;}
+.auth-msg.error{background:rgba(224,80,80,.1);border:1px solid rgba(224,80,80,.3);color:#e05050;}
+.auth-msg.success{background:rgba(74,154,90,.1);border:1px solid rgba(74,154,90,.3);color:#4a9a5a;}
+.btn-auth{width:100%;padding:11px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-auth:hover{background:var(--accentH);transform:translateY(-1px);}
+.btn-auth:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+.btn-google{width:100%;padding:10px;border-radius:8px;border:1px solid var(--borderf);background:var(--panel2);color:var(--text);font-size:.88rem;font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:14px;}
+.btn-google:hover{border-color:var(--accent);background:var(--panel);}
+.auth-divider{display:flex;align-items:center;gap:10px;margin:14px 0;color:var(--muted);font-size:.75rem;}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.auth-switch{text-align:center;font-size:.8rem;color:var(--muted);margin-top:18px;}
+.auth-switch span{color:var(--accent);cursor:pointer;font-weight:500;}
+.auth-switch span:hover{text-decoration:underline;}
+
+/* ── PROFILE SETUP ── */
+#setupScreen{align-items:center;justify-content:center;padding:24px;background:var(--bg);}
+.setup-card{width:100%;max-width:460px;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:36px 32px;box-shadow:0 24px 80px rgba(0,0,0,.6);animation:fsu .35s ease both;}
+.setup-progress{display:flex;gap:5px;margin-bottom:28px;}
+.setup-step{flex:1;height:3px;border-radius:2px;background:var(--border);transition:background .3s;}
+.setup-step.done{background:var(--accent);}
+.setup-title{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;margin-bottom:5px;}
+.setup-sub{font-size:.84rem;color:var(--muted);margin-bottom:24px;}
+.avatar-row{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.avatar-preview{width:60px;height:60px;border-radius:14px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;font-weight:700;flex-shrink:0;overflow:hidden;}
+.avatar-preview img{width:100%;height:100%;object-fit:cover;}
+.btn-setup{width:100%;padding:11px;border-radius:8px;border:none;background:var(--accent);color:#fff;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px;}
+.btn-setup:hover{background:var(--accentH);transform:translateY(-1px);}
+.btn-setup:disabled{opacity:.55;cursor:not-allowed;transform:none;}
+
+/* ── TOAST ── */
+.toast-container{position:fixed;bottom:24px;right:24px;z-index:9000;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
+.toast{background:var(--panel);border:1px solid var(--borderf);border-radius:10px;padding:11px 16px;display:flex;align-items:center;gap:10px;font-size:.84rem;box-shadow:0 8px 24px rgba(0,0,0,.35);transform:translateY(10px);opacity:0;transition:all .25s;max-width:300px;}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+.l-nav{padding:16px 20px;}
+.l-hero{padding:60px 20px 40px;}
+.l-features{padding:0 16px 48px;grid-template-columns:1fr;}
+.l-stats{margin:0 16px 40px;flex-wrap:wrap;}
+.l-stat{min-width:50%;}
+.l-footer{padding:16px 20px;flex-direction:column;gap:6px;text-align:center;}
+.auth-card,.setup-card{padding:26px 20px;}
+}
+@media(max-width:480px){
+.l-title{font-size:2rem;}
+.form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── OFFLINE BANNER ── -->
+<div id="offlineBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:#e05050;color:#fff;padding:8px 16px;font-size:.78rem;font-weight:600;align-items:center;justify-content:center;gap:8px;text-align:center;padding-top:calc(8px + env(safe-area-inset-top,0px));">
+  <svg style="width:14px;height:14px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;" viewBox="0 0 24 24"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+  You are offline
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SCREEN 1 — LANDING
+═══════════════════════════════════════════════════════════════════ -->
+<div id="landingScreen" class="screen">
+  <div class="grid-bg"></div>
+  <div class="glow"></div>
+
+  <nav class="l-nav">
+    <div class="l-brand">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><path d="M9 12l2.25 2.25L21 4"/></svg>
+      NullYex
+      <div class="l-brand-dot"></div>
+    </div>
+    <div class="l-nav-right">
+      <button class="btn-o" onclick="showAuth('login')">Sign In</button>
+      <button class="btn-s" onclick="showAuth('signup')">Join Now</button>
+    </div>
+  </nav>
+
+  <div class="l-hero">
+    <div class="l-eyebrow">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Arka Jain University
+    </div>
+    <div class="l-batch">B.Tech · AI &amp; Data Science (IBM Integrated) · 2025–2029</div>
+    <h1 class="l-title">Your Batch.<br><em>All in one place.</em></h1>
+    <p class="l-university">School of Engineering &amp; IT — Jamshedpur</p>
+    <p class="l-tagline">Track assignments, mark attendance, get notices and generate cover pages — everything your batch needs, built for you.</p>
+    <div class="l-cta">
+      <button class="btn-s" onclick="showAuth('signup')">Get Started Free</button>
+      <button class="btn-o" onclick="showAuth('login')">I already have an account</button>
+    </div>
+  </div>
+
+  <div class="l-stats">
+    <div class="l-stat"><div class="l-stat-val">12</div><div class="l-stat-lbl">Subjects</div></div>
+    <div class="l-stat"><div class="l-stat-val">2</div><div class="l-stat-lbl">Tools</div></div>
+    <div class="l-stat"><div class="l-stat-val">∞</div><div class="l-stat-lbl">Resources</div></div>
+    <div class="l-stat"><div class="l-stat-val">1</div><div class="l-stat-lbl">Batch</div></div>
+  </div>
+
+  <div class="l-features">
+    <div class="feat">
+      <div class="feat-icon">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+      </div>
+      <div class="feat-title">TaskBoard</div>
+      <div class="feat-desc">Track every assignment across all 12 subjects. Due dates, syllabus, notes, and file uploads — all organized by subject.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="feat-title">AttendEX</div>
+      <div class="feat-desc">Smart attendance marking with smart schedule auto-detection. Export to Excel, share on WhatsApp, filter by batch.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </div>
+      <div class="feat-title">Notices</div>
+      <div class="feat-desc">Class announcements, file shares and important updates posted by admins directly on your home screen.</div>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+      </div>
+      <div class="feat-title">Cover Page</div>
+      <div class="feat-desc">Generate Arka Jain University assignment cover pages instantly. Fill in your details and download as PNG.</div>
+    </div>
+  </div>
+
+  <footer class="l-footer">
+    <span>© 2025 NullYex · AI &amp; DS Batch 2025–2029 · Arka Jain University</span>
+    <span>Built by Farhan Khalid &amp; Team NullYex</span>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SCREEN 2 — AUTH (Sign In / Sign Up)
+═══════════════════════════════════════════════════════════════════ -->
+<div id="authScreen" class="screen hidden">
+  <div class="auth-wrap">
+    <button class="auth-back" onclick="showLanding()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to home
+    </button>
+    <div class="auth-card">
+      <div class="auth-logo">
+        <div class="auth-logo-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><path d="M9 12l2.25 2.25L21 4"/></svg>
+        </div>
+        <span class="auth-logo-name">NullYex</span>
+      </div>
+      <h2 class="auth-title" id="authTitle">Welcome back</h2>
+      <p class="auth-sub" id="authSub">Sign in to your AI &amp; DS batch account</p>
+
+      <div class="auth-tabs" id="authTabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Sign In</button>
+        <button class="auth-tab" id="tabSignup" onclick="switchAuthTab('signup')">Sign Up</button>
+      </div>
+
+      <div id="authMsg" class="auth-msg"></div>
+
+      <!-- Google -->
+      <button class="btn-google" onclick="signInWithGoogle()">
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-divider">or</div>
+
+      <!-- Login form -->
+      <div id="loginForm">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" id="loginEmail" class="inp" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="loginPassword" class="inp" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button class="btn-auth" id="loginBtn" onclick="doLogin()">
+          <span id="loginBtnText">Sign In</span>
+        </button>
+      </div>
+
+      <!-- Signup form -->
+      <div id="signupForm" class="hidden">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" id="signupFirst" class="inp" placeholder="Farhan" autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" id="signupLast" class="inp" placeholder="Khalid" autocomplete="family-name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" id="signupEmail" class="inp" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="signupPassword" class="inp" placeholder="Min. 6 characters" autocomplete="new-password">
+        </div>
+        <button class="btn-auth" id="signupBtn" onclick="doSignup()">
+          <span id="signupBtnText">Create Account</span>
+        </button>
+      </div>
+
+      <div class="auth-switch" id="authSwitch">
+        Don't have an account? <span onclick="switchAuthTab('signup')">Sign Up</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SCREEN 3 — PROFILE SETUP (first-time users)
+═══════════════════════════════════════════════════════════════════ -->
+<div id="setupScreen" class="screen hidden">
+  <div class="setup-card">
+    <div class="setup-progress">
+      <div class="setup-step done" id="sp1"></div>
+      <div class="setup-step" id="sp2"></div>
+      <div class="setup-step" id="sp3"></div>
+    </div>
+    <h2 class="setup-title" id="setupTitle">Complete your profile</h2>
+    <p class="setup-sub" id="setupSub">We need a few details to personalise your experience</p>
+
+    <div id="setupMsgWrap"></div>
+
+    <div id="setupStep1">
+      <div class="avatar-row">
+        <div class="avatar-preview" id="setupAvatarPreview">?</div>
+        <div>
+          <div style="font-size:.82rem;color:var(--muted);line-height:1.5;">Your avatar is generated<br>from your initials automatically.</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Enrollment No *</label>
+          <input type="text" id="setupEnroll" class="inp" placeholder="e.g. 2300xxxxx" oninput="updateSetupAvatar()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Roll No *</label>
+          <input type="text" id="setupRoll" class="inp" placeholder="e.g. 01">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Section</label>
+        <select id="setupSection" class="inp">
+          <option value="A">Section A</option>
+          <option value="B">Section B</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Batch</label>
+        <select id="setupBatch" class="inp">
+          <option value="All">Full Class (All)</option>
+          <option value="C1">C1 (Roll 1–32)</option>
+          <option value="C2">C2 (Roll 33–64)</option>
+        </select>
+      </div>
+      <button class="btn-setup" onclick="submitSetup()">
+        <span id="setupBtnText">Save &amp; Continue to App →</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<script>
+const SUPABASE_URL = 'https://gncrvvtwmluowyiofpqy.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduY3J2dnR3bWx1b3d5aW9mcHF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Mzc4MDgsImV4cCI6MjA4OTMxMzgwOH0.FsdFjmR-vYw2mLztbnmonG1gYJjIYIVFWi-1XaPVOLQ';
+
+let sb;
+try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{persistSession:true,autoRefreshToken:true}}); } catch(e){}
+
+function showScreen(id) {
+    ['landingScreen','authScreen','setupScreen'].forEach(s => {
+        document.getElementById(s).classList.toggle('hidden', s !== id);
+    });
+}
+function showLanding() { showScreen('landingScreen'); }
+function showAuth(tab) {
+    showScreen('authScreen');
+    switchAuthTab(tab || 'login');
+}
+
+function switchAuthTab(tab) {
+    document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
+    document.getElementById('signupForm').classList.toggle('hidden', tab !== 'signup');
+    document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+    document.getElementById('authTitle').textContent = tab === 'login' ? 'Welcome back' : 'Create account';
+    document.getElementById('authSub').textContent = tab === 'login' ? 'Sign in to your AI & DS batch account' : 'Join the AI & DS Batch 2025–2029';
+    document.getElementById('authSwitch').innerHTML = tab === 'login'
+        ? 'Don't have an account? <span onclick="switchAuthTab('signup')">Sign Up</span>'
+        : 'Already have an account? <span onclick="switchAuthTab('login')">Sign In</span>';
+    clearAuthMsg();
+}
+
+function setAuthMsg(msg, type) {
+    const el = document.getElementById('authMsg');
+    el.textContent = msg;
+    el.className = 'auth-msg show ' + type;
+}
+function clearAuthMsg() {
+    const el = document.getElementById('authMsg');
+    el.className = 'auth-msg';
+    el.textContent = '';
+}
+
+async function doLogin() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const pass = document.getElementById('loginPassword').value;
+    if (!email || !pass) return setAuthMsg('Please fill in all fields.', 'error');
+    const btn = document.getElementById('loginBtn');
+    btn.disabled = true;
+    document.getElementById('loginBtnText').textContent = 'Signing in...';
+    try {
+        const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+        if (error) throw error;
+        await handlePostLogin(data.user);
+    } catch(e) {
+        setAuthMsg(e.message || 'Sign in failed.', 'error');
+    }
+    btn.disabled = false;
+    document.getElementById('loginBtnText').textContent = 'Sign In';
+}
+
+async function doSignup() {
+    const first = document.getElementById('signupFirst').value.trim();
+    const last = document.getElementById('signupLast').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const pass = document.getElementById('signupPassword').value;
+    if (!first || !email || !pass) return setAuthMsg('Please fill in all required fields.', 'error');
+    if (pass.length < 6) return setAuthMsg('Password must be at least 6 characters.', 'error');
+    const btn = document.getElementById('signupBtn');
+    btn.disabled = true;
+    document.getElementById('signupBtnText').textContent = 'Creating account...';
+    try {
+        const fullName = [first, last].filter(Boolean).join(' ');
+        const { data, error } = await sb.auth.signUp({
+            email, password: pass,
+            options: { data: { full_name: fullName } }
+        });
+        if (error) throw error;
+        if (data.user && !data.session) {
+            setAuthMsg('Check your email to confirm your account, then sign in.', 'success');
+        } else if (data.user) {
+            await handlePostLogin(data.user);
+        }
+    } catch(e) {
+        setAuthMsg(e.message || 'Sign up failed.', 'error');
+    }
+    btn.disabled = false;
+    document.getElementById('signupBtnText').textContent = 'Create Account';
+}
+
+async function signInWithGoogle() {
+    if (!sb) return;
+    try {
+        const { error } = await sb.auth.signInWithOAuth({
+            provider: 'google',
+            options: { redirectTo: window.location.href.split('?')[0].split('#')[0] }
+        });
+        if (error) throw error;
+    } catch(e) { showToast(e.message, 'error'); }
+}
+
+async function handlePostLogin(user) {
+    const profile = await fetchProfile(user.id);
+    if (!profile || !profile.enrollment_no) {
+        const name = user.user_metadata?.full_name || '';
+        document.getElementById('setupAvatarPreview').textContent = name ? name.charAt(0).toUpperCase() : '?';
+        showScreen('setupScreen');
+    } else {
+        goToApp();
+    }
+}
+
+async function fetchProfile(uid) {
+    try {
+        const { data } = await sb.from('student_profiles').select('*').eq('user_id', uid).single();
+        return data;
+    } catch(e) { return null; }
+}
+
+function updateSetupAvatar() {
+    const enroll = document.getElementById('setupEnroll').value;
+    const el = document.getElementById('setupAvatarPreview');
+    el.textContent = enroll ? enroll.charAt(enroll.length - 1) : '?';
+}
+
+async function submitSetup() {
+    const enrollment_no = document.getElementById('setupEnroll').value.trim();
+    const roll_no = document.getElementById('setupRoll').value.trim();
+    const section = document.getElementById('setupSection').value;
+    const batch = document.getElementById('setupBatch').value;
+    if (!enrollment_no || !roll_no) return showToast('Enrollment No and Roll No are required', 'error');
+    const btn = document.getElementById('setupBtnText');
+    btn.textContent = 'Saving...';
+    try {
+        const { data: { user } } = await sb.auth.getUser();
+        if (!user) throw new Error('Not logged in');
+        const { error } = await sb.from('student_profiles').upsert({
+            user_id: user.id,
+            email: user.email,
+            full_name: user.user_metadata?.full_name || '',
+            enrollment_no,
+            roll_no,
+            section,
+            batch,
+            program: 'B.Tech AI & DS (IBM) 2025-2029'
+        });
+        if (error) throw error;
+        showToast('Profile saved! Loading app...');
+        setTimeout(goToApp, 800);
+    } catch(e) {
+        showToast(e.message || 'Failed to save profile', 'error');
+    }
+    btn.textContent = 'Save & Continue to App →';
+}
+
+function goToApp() {
+    window.location.href = './app.html';
+}
+
+function showToast(msg, type = 'success') {
+    const c = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = `<span style="font-size:1.1rem">${type==='success'?'✓':'✕'}</span><div>${msg}</div>`;
+    c.appendChild(t);
+    setTimeout(() => t.classList.add('show'), 10);
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 300); }, 3500);
+}
+
+window.addEventListener('online', () => { document.getElementById('offlineBanner').style.display = 'none'; });
+window.addEventListener('offline', () => { document.getElementById('offlineBanner').style.display = 'flex'; });
+if (!navigator.onLine) document.getElementById('offlineBanner').style.display = 'flex';
+
+// Theme
+const savedTheme = localStorage.getItem('app_theme') || 'default';
+const savedMode = localStorage.getItem('app_color_mode') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+document.documentElement.setAttribute('data-mode', savedMode);
+
+// Check if already logged in
+window.addEventListener('DOMContentLoaded', async () => {
+    if (!sb) return;
+    try {
+        const { data: { session } } = await sb.auth.getSession();
+        if (session?.user) {
+            const profile = await fetchProfile(session.user.id);
+            if (!profile || !profile.enrollment_no) {
+                const name = session.user.user_metadata?.full_name || '';
+                document.getElementById('setupAvatarPreview').textContent = name ? name.charAt(0).toUpperCase() : '?';
+                showScreen('setupScreen');
+            } else {
+                goToApp();
+            }
+        }
+    } catch(e) {}
+
+    sb.auth.onAuthStateChange(async (event, session) => {
+        if (event === 'SIGNED_IN' && session?.user) {
+            await handlePostLogin(session.user);
+        }
+    });
+});
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>
