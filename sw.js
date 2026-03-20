@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'nullyex-v1';
+const CACHE_VERSION = 'nullyex-v2';
 const CACHE_NAME = CACHE_VERSION;
 
 const PRECACHE_URLS = [
@@ -6,18 +6,18 @@ const PRECACHE_URLS = [
     './app.html',
     './manifest.json',
     './icons/icon-192.png',
-    './icons/icon-512.png',
-    'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap'
+    './icons/icon-512.png'
 ];
 
 const NETWORK_ONLY_PATTERNS = [
     /supabase\.co/,
-    /cloudflare\.com\/turnstile/,
+    /cloudflare\.com/,
     /workers\.dev/,
     /cloudflareinsights\.com/,
-    /challenges\.cloudflare\.com/,
     /unpkg\.com/,
-    /cdnjs\.cloudflare\.com/
+    /cdnjs\.cloudflare\.com/,
+    /fonts\.googleapis\.com/,
+    /fonts\.gstatic\.com/
 ];
 
 self.addEventListener('install', event => {
@@ -59,36 +59,19 @@ self.addEventListener('fetch', event => {
         return;
     }
 
-    const url = new URL(request.url);
-
-    if (url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com') {
-        event.respondWith(
-            caches.open(CACHE_NAME).then(async cache => {
-                const cached = await cache.match(request);
-                if (cached) return cached;
-                const response = await fetch(request).catch(() => null);
-                if (response && response.ok) cache.put(request, response.clone());
-                return response || new Response('', { status: 503 });
-            })
-        );
-        return;
-    }
-
     if (request.destination === 'image') {
         event.respondWith(
             caches.match(request).then(cached => {
                 if (cached) return cached;
                 return fetch(request)
                     .then(response => {
-                        if (response.ok) {
-                            caches.open(CACHE_NAME).then(cache => {
-                                cache.put(request, response.clone());
-                                limitCache(CACHE_NAME, 50);
-                            });
+                        if (response && response.ok) {
+                            const clone = response.clone();
+                            caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
                         }
                         return response;
                     })
-                    .catch(() => caches.match('./icons/icon-192.png').then(r => r || new Response('', { status: 503 })));
+                    .catch(() => new Response('', { status: 503 }));
             })
         );
         return;
@@ -99,11 +82,10 @@ self.addEventListener('fetch', event => {
             if (cached) return cached;
             return fetch(request)
                 .then(response => {
-                    if (!response || response.status !== 200 || response.type === 'error') return response;
-                    caches.open(CACHE_NAME).then(cache => {
-                        cache.put(request, response.clone());
-                        limitCache(CACHE_NAME, 60);
-                    });
+                    if (response && response.ok && response.status === 200) {
+                        const clone = response.clone();
+                        caches.open(CACHE_NAME).then(cache => cache.put(request, clone));
+                    }
                     return response;
                 })
                 .catch(() => {
@@ -116,15 +98,6 @@ self.addEventListener('fetch', event => {
     );
 });
 
-async function limitCache(name, maxSize) {
-    const cache = await caches.open(name);
-    const keys = await cache.keys();
-    if (keys.length > maxSize) {
-        await cache.delete(keys[0]);
-        await limitCache(name, maxSize);
-    }
-}
-
 self.addEventListener('push', event => {
     if (!event.data) return;
     let payload;
@@ -135,10 +108,9 @@ self.addEventListener('push', event => {
             body: payload.body || 'You have a new notification.',
             icon: './icons/icon-192.png',
             badge: './icons/icon-192.png',
-            tag: payload.tag || 'nullyex-notification',
+            tag: 'nullyex-notification',
             data: { url: payload.url || './app.html' },
-            vibrate: [100, 50, 100],
-            requireInteraction: false
+            vibrate: [100, 50, 100]
         })
     );
 });
@@ -162,7 +134,4 @@ self.addEventListener('notificationclick', event => {
 
 self.addEventListener('message', event => {
     if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
-    if (event.data?.type === 'GET_VERSION') {
-        event.ports[0]?.postMessage({ version: CACHE_VERSION });
-    }
 });
