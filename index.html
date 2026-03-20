@@ -317,7 +317,7 @@ input::placeholder,textarea::placeholder{color:var(--muted);opacity:0.6;}
       </div>
 
       <div class="auth-switch" id="authSwitch">
-        Don't have an account? <span onclick="switchAuthTab('signup')">Sign Up</span>
+        Don&#39;t have an account? <span onclick="switchAuthTab('signup')">Sign Up</span>
       </div>
     </div>
   </div>
@@ -380,8 +380,8 @@ input::placeholder,textarea::placeholder{color:var(--muted);opacity:0.6;}
 <div id="toastContainer" class="toast-container"></div>
 
 <script>
-const SUPABASE_URL = 'https://gncrvvtwmluowyiofpqy.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduY3J2dnR3bWx1b3d5aW9mcHF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Mzc4MDgsImV4cCI6MjA4OTMxMzgwOH0.FsdFjmR-vYw2mLztbnmonG1gYJjIYIVFWi-1XaPVOLQ';
+const SUPABASE_URL = 'https://ypdnqohwqmhgvssgucpq.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZG5xb2h3cW1oZ3Zzc2d1Y3BxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5Nzk3MDEsImV4cCI6MjA4OTU1NTcwMX0.NqC_id6Urp5IBvutSDYs3m2x3BsD6edvKYlOHFzjIn8';
 
 let sb;
 try { sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{persistSession:true,autoRefreshToken:true}}); } catch(e){}
@@ -405,8 +405,8 @@ function switchAuthTab(tab) {
     document.getElementById('authTitle').textContent = tab === 'login' ? 'Welcome back' : 'Create account';
     document.getElementById('authSub').textContent = tab === 'login' ? 'Sign in to your AI & DS batch account' : 'Join the AI & DS Batch 2025–2029';
     document.getElementById('authSwitch').innerHTML = tab === 'login'
-        ? 'Don't have an account? <span onclick="switchAuthTab('signup')">Sign Up</span>'
-        : 'Already have an account? <span onclick="switchAuthTab('login')">Sign In</span>';
+        ? `Don&#39;t have an account? <span onclick="switchAuthTab('signup')">Sign Up</span>`
+        : `Already have an account? <span onclick="switchAuthTab('login')">Sign In</span>`;
     clearAuthMsg();
 }
 
