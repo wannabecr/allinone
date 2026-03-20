@@ -1,29 +1,80 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="default" data-mode="dark">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<meta name="color-scheme" content="dark light">
-<title>NullYex App — AI&DS 2025-2029</title>
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#0a0a0a" id="themeColorMeta">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="NullYex">
-<link rel="apple-touch-icon" href="./icons/icon-192.png">
-<link rel="icon" href="./icons/icon-192.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@supabase/supabase-js@2" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<style>
-    .icon{display:inline-flex;align-items:center;justify-content:center;width:1em;height:1em;vertical-align:-0.125em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
-    .icon-lg{width:1.25em;height:1.25em;}.icon-xl{width:1.5em;height:1.5em;}.icon-2xl{width:2em;height:2em;}.icon-3xl{width:3em;height:3em;}
-    @keyframes icon-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}.icon-spin{animation:icon-spin 1s linear infinite;}
-</style>
-<style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <meta name="color-scheme" content="dark light">
+        <title>TaskBoard by NullYex</title>
+        <style>
+            .icon {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 1em;
+                height: 1em;
+                vertical-align: -0.125em;
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 2;
+                stroke-linecap: round;
+                stroke-linejoin: round;
+                flex-shrink: 0;
+            }
+
+            .icon-lg {
+                width: 1.25em;
+                height: 1.25em;
+            }
+
+            .icon-xl {
+                width: 1.5em;
+                height: 1.5em;
+            }
+
+            .icon-2xl {
+                width: 2em;
+                height: 2em;
+            }
+
+            .icon-3xl {
+                width: 3em;
+                height: 3em;
+            }
+
+            @keyframes icon-spin {
+                from {
+                    transform: rotate(0deg)
+                }
+
+                to {
+                    transform: rotate(360deg)
+                }
+            }
+
+            .icon-spin {
+                animation: icon-spin 1s linear infinite;
+            }
+        </style>
+        <link rel="manifest" href="./manifest.json">
+        <meta name="theme-color" content="#0a0a0a" id="themeColorMeta">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="application-name" content="TaskBoard">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-title" content="TaskBoard">
+        <meta name="msapplication-TileColor" content="#0a0a0a">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="apple-touch-icon" sizes="180x180" href="./icons/icon-192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./icons/icon-192.png">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://unpkg.com/@supabase/supabase-js@2" crossorigin="anonymous"></script>
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+        <style>
             :root {
                 --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
                 --font-mono: 'JetBrains Mono', monospace;
@@ -2148,104 +2199,15 @@
             }
 
         </style>
-<style>
-/* ── Extra styles for AttendEX + profile view ── */
-#appScreen{display:flex;height:100dvh;overflow:hidden;}
-body{height:100dvh;overflow:hidden;display:flex;flex-direction:column;}
+    </head>
+    <body>
+        
+        <div id="offlineBanner" style="display:none; position:fixed; top:0; left:0; right:0; z-index:9999; background:var(--danger); color:#fff; padding:8px 16px; font-size:0.8rem; font-weight:600; align-items:center; justify-content:center; gap:8px; text-align:center; padding-top:calc(8px + env(safe-area-inset-top,0px));">
+            <svg style="width:16px;height:16px;flex-shrink:0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            You are offline — showing cached data
+        </div>
 
-.ax-section{display:flex;flex-direction:column;gap:20px;max-width:900px;width:100%;}
-.ax-card{background:var(--panel-bg);border:1px solid var(--border);border-radius:14px;padding:22px;}
-.ax-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px;flex-wrap:wrap;}
-.ax-card-title{font-size:.88rem;text-transform:uppercase;letter-spacing:.05em;color:var(--text-muted);font-weight:600;}
-.ax-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
-.ax-stat{background:var(--panel-bg-alt);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;}
-.ax-stat-val{font-size:1.6rem;font-weight:700;font-family:var(--font-mono);line-height:1;}
-.ax-stat-lbl{font-size:.68rem;color:var(--text-muted);margin-top:4px;text-transform:uppercase;letter-spacing:.04em;font-weight:600;}
-.ax-human-list{display:flex;flex-direction:column;gap:6px;max-height:420px;overflow-y:auto;padding-right:3px;}
-.ax-human{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s;user-select:none;min-height:44px;}
-.ax-human:hover{background:var(--panel-bg-alt);transform:translateX(3px);border-color:var(--border-focus);}
-.ax-human:active{transform:scale(.99);}
-.ax-human.ax-present{border-color:#4a9a5a;background:rgba(74,154,90,.08);}
-.ax-human.ax-absent{border-color:var(--danger);background:rgba(224,80,80,.08);}
-.ax-badge{font-size:.7rem;font-weight:700;padding:4px 12px;border-radius:20px;border:1px solid var(--border);color:var(--text-muted);min-width:72px;text-align:center;}
-.ax-human.ax-present .ax-badge{border-color:#4a9a5a;color:#4a9a5a;background:rgba(74,154,90,.1);}
-.ax-human.ax-absent .ax-badge{border-color:var(--danger);color:var(--danger);background:rgba(224,80,80,.1);}
-.ax-human-info{font-size:.86rem;}
-.ax-human-sub{font-size:.72rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;margin-top:4px;}
-.ax-roll{background:var(--accent-alpha);color:var(--accent);border:1px solid var(--accent);padding:1px 6px;border-radius:5px;font-weight:900;font-size:.7rem;}
-.ax-bulk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.ax-filter-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.ax-toggle{background:transparent;border:1px solid var(--border);color:var(--text-muted);padding:9px 12px;border-radius:8px;font-size:.78rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .2s;font-family:var(--font-family);}
-.ax-toggle:hover{background:var(--panel-bg-alt);}
-.ax-toggle.active{background:var(--accent);border-color:var(--accent);color:#fff;}
-.ax-export-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;}
-.ax-btn{background:var(--panel-bg-alt);border:1px solid var(--border);color:var(--text-main);padding:9px;border-radius:8px;font-family:var(--font-mono);font-size:.76rem;font-weight:700;cursor:pointer;transition:all .2s;text-transform:uppercase;}
-.ax-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--panel-bg);}
-.ax-btn.primary{border-color:var(--accent);color:var(--accent);}
-.ax-btn.primary:hover{background:var(--accent);color:#000;}
-.ax-text-output{width:100%;height:170px;background:var(--bg-dark);border:1px solid var(--border);color:var(--accent);font-family:var(--font-mono);font-size:.76rem;padding:14px;resize:none;border-radius:8px;line-height:1.6;margin-top:12px;}
-.ax-search{background:var(--panel-bg-alt);border:1px solid var(--border);color:var(--text-main);font-family:var(--font-family);font-size:.84rem;padding:7px 12px;border-radius:6px;transition:all .2s;outline:none;width:180px;}
-.ax-search:focus{border-color:var(--accent);width:210px;}
-
-/* day tabs */
-.ax-day-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px;scrollbar-width:none;}
-.ax-day-tabs::-webkit-scrollbar{display:none;}
-.ax-day-tab{padding:7px 14px;border:1px solid var(--border);border-radius:20px;font-size:.73rem;font-weight:700;color:var(--text-muted);cursor:pointer;white-space:nowrap;transition:all .2s;background:var(--panel-bg-alt);font-family:var(--font-mono);}
-.ax-day-tab:hover{border-color:var(--accent);color:var(--text-main);}
-.ax-day-tab.active{background:var(--accent);color:#000;border-color:var(--accent);}
-
-/* timeline slots */
-.ax-timeline{display:flex;flex-direction:column;gap:8px;max-height:360px;overflow-y:auto;padding-right:3px;}
-.ax-slot{display:flex;align-items:center;padding:13px 16px;border:1px solid var(--border);border-radius:10px;background:var(--panel-bg-alt);cursor:pointer;transition:all .15s;user-select:none;position:relative;min-height:44px;}
-.ax-slot:hover{background:var(--panel-bg);transform:translateX(3px);border-color:var(--accent);}
-.ax-slot.selected{border-color:var(--accent)!important;background:var(--accent-alpha)!important;box-shadow:inset 0 0 0 1px var(--accent);}
-.ax-slot.active-now::after{content:'NOW';position:absolute;top:8px;right:8px;font-size:.58rem;font-weight:900;color:var(--accent);background:var(--bg-dark);padding:2px 5px;border-radius:4px;border:1px solid var(--accent);}
-.ax-slot-time{display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:56px;border-right:1px solid var(--border);padding-right:10px;margin-right:10px;text-align:center;}
-.ax-slot-start{font-size:.84rem;font-weight:700;color:var(--text-main);}
-.ax-slot-end{font-size:.66rem;color:var(--text-muted);}
-.ax-slot-info{flex:1;min-width:0;}
-.ax-slot-name{font-size:.82rem;font-weight:600;margin-bottom:3px;}
-.ax-slot-faculty{font-size:.68rem;color:var(--text-muted);}
-.ax-slot-type{font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;margin-top:4px;display:inline-block;padding:1px 6px;border-radius:4px;background:rgba(0,0,0,.2);}
-.ax-slot-type.Theory{color:var(--accent);}
-.ax-slot-type.Lab{color:var(--danger);}
-
-/* profile view */
-.profile-view{max-width:600px;}
-.profile-avatar-xl{width:80px;height:80px;border-radius:18px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:700;margin-bottom:20px;overflow:hidden;flex-shrink:0;}
-.profile-avatar-xl img{width:100%;height:100%;object-fit:cover;}
-.profile-grid{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;background:var(--panel-bg);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:16px;}
-.profile-lbl{font-size:.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.04em;font-weight:600;display:flex;align-items:center;white-space:nowrap;}
-.profile-val{font-size:.86rem;color:var(--text-main);font-family:var(--font-mono);display:flex;align-items:center;}
-
-/* notice on home */
-.notice-feed{display:flex;flex-direction:column;gap:8px;}
-.notice-item{background:var(--panel-bg);border:1px solid var(--border);border-left:3px solid var(--warning);border-radius:10px;padding:12px 14px;transition:border-color .2s;}
-.notice-item:hover{border-color:var(--border-focus);border-left-color:var(--warning);}
-.notice-item-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:4px;}
-.notice-item-title{font-size:.86rem;font-weight:600;}
-.notice-item-date{font-size:.66rem;color:var(--text-muted);font-family:var(--font-mono);white-space:nowrap;flex-shrink:0;}
-.notice-item-body{font-size:.78rem;color:var(--text-muted);line-height:1.5;}
-
-@media(max-width:768px){
-  .ax-stats{grid-template-columns:repeat(3,1fr);}
-  .ax-bulk-grid{grid-template-columns:1fr 1fr;}
-  .ax-export-grid{grid-template-columns:1fr 1fr;}
-}
-@media(max-width:480px){
-  .ax-stat-val{font-size:1.2rem;}
-  .stat-value{font-size:1.2rem;}
-}
-</style>
-</head>
-<body>
-
-<div id="offlineBanner" style="display:none;position:fixed;top:0;left:0;right:0;z-index:9999;background:var(--danger);color:#fff;padding:8px 16px;font-size:.78rem;font-weight:600;align-items:center;justify-content:center;gap:8px;padding-top:calc(8px + env(safe-area-inset-top,0px));">
-  <svg style="width:14px;height:14px;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:2;" viewBox="0 0 24 24"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-  You are offline — showing cached data
-</div>
-
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+        <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
             <symbol id="ic-home" viewBox="0 0 24 24">
                 <path d="M5 12l-2 0l9-9l9 9l-2 0"/>
                 <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>
@@ -2447,171 +2409,196 @@ body{height:100dvh;overflow:hidden;display:flex;flex-direction:column;}
                 <path d="M20 20v-7a4 4 0 0 0-4-4H4"/>
             </symbol>
         </svg>
+        <div class="app-container">
+            <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMobileSidebar()"></div>
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-header-top">
+                        <div class="brand">
+                            <div class="brand-icon">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                                    <path d="M9 12l2.25 2.25L21 4"/>
+                                </svg>
+                            </div>
+                            <span class="brand-text">TaskBoard</span>
+                        </div>
+                        <button type="button" class="btn btn-ghost btn-icon desktop-toggle" onclick="toggleDesktopSidebar()">
+                            <svg class="icon">
+                                <use href="#ic-menu"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="subject-search-wrap">
+                    <input
+                        type="text"
+                        class="subject-search"
+                        id="subjectSearchInput"
+                        placeholder="Search subjects..."
+                        oninput="filterSidebarSubjects(this.value)"
+                        autocomplete="off"
+                    >
+                </div>
+                <div class="subject-list" id="subjectList">
+                    <div id="sidebarActivePill"></div>
+                </div>
+                <div class="sidebar-footer">
+                    <div class="user-profile" id="userProfileBtn" onclick="handleProfileClick()">
+                        <div class="avatar" id="sidebarAvatar">
+                            <svg class="icon">
+                                <use href="#ic-user"/>
+                            </svg>
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name" id="sidebarUserName">Sign In</div>
+                            <div class="user-role" id="sidebarUserRole">Guest</div>
+                        </div>
+                    </div>
+                    <div class="sidebar-actions">
+                        <button type="button" class="icon-btn" id="installAppBtn" onclick="triggerInstallPrompt()" style="display:none;" title="Install App">
+                            <svg class="icon">
+                                <use href="#ic-download"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="icon-btn" onclick="openThemeOverlay()" title="Appearance">
+                            <svg class="icon">
+                                <use href="#ic-palette"/>
+                            </svg>
+                        </button>
+                        <button type="button" class="icon-btn hidden" id="adminInboxBtn" onclick="openInboxModal()" title="Inbox">
+                            <svg class="icon">
+                                <use href="#ic-inbox"/>
+                            </svg>
+                            <span class="badge hidden" id="inboxBadge"></span>
+                        </button>
+                        <button type="button" class="icon-btn" id="notifBellBtn" onclick="handleNotifBell()" title="Notifications">
+                            <svg class="icon" id="notifBellIcon">
+                                <use href="#ic-bell"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            <main class="workspace">
+                <div class="mobile-header">
+                    <button type="button" class="menu-toggle" onclick="toggleMobileSidebar()" aria-label="Toggle Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div style="display: flex; align-items: center; gap: 8px; flex: 1;">
+                        <div class="brand-icon" style="width: 22px; height: 22px;">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                                <path d="M9 12l2.25 2.25L21 4"/>
+                            </svg>
+                        </div>
+                        <span style="font-weight: 600; font-size: 1.15rem; letter-spacing: -0.02em; color: var(--text-main);">TaskBoard</span>
+                    </div>
+                </div>
+                <div class="workspace-content" id="workspaceContent">
+                    <div id="welcomeView" class="hidden"></div>
+                    <div id="subjectView" class="hidden">
+                        <div class="workspace-header">
+                            <h1 id="subjectTitle">Subject Name</h1>
+                            <div class="subject-meta">
+                                <span>
+                                    <svg class="icon">
+                                        <use href="#ic-user"/>
+                                    </svg>
+                                    <span id="subjectTeacher">Teacher Name</span>
+                                </span>
+                                <div class="meta-divider"></div>
+                                <span class="mono" id="subjectProgress">0/0 (0%)</span>
+                            </div>
+                        </div>
 
-<div id="appScreen" class="app-container">
-  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleMobileSidebar()"></div>
-  <nav class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-header-top">
-        <div class="brand">
-          <div class="brand-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><path d="M9 12l2.25 2.25L21 4"/></svg>
-          </div>
-          <span class="brand-text">NullYex</span>
-        </div>
-        <button type="button" class="btn btn-ghost btn-icon desktop-toggle" onclick="toggleDesktopSidebar()">
-          <svg class="icon"><use href="#ic-menu"/></svg>
-        </button>
-      </div>
-    </div>
-    <div class="subject-search-wrap">
-      <input type="text" class="subject-search" id="subjectSearchInput" placeholder="Search subjects..." oninput="filterSidebarSubjects(this.value)" autocomplete="off">
-    </div>
-    <div class="subject-list" id="subjectList"><div id="sidebarActivePill"></div></div>
-    <div class="sidebar-footer">
-      <div class="user-profile" id="userProfileBtn" onclick="handleProfileClick()">
-        <div class="avatar" id="sidebarAvatar"><svg class="icon"><use href="#ic-user"/></svg></div>
-        <div class="user-info">
-          <div class="user-name" id="sidebarUserName">Loading...</div>
-          <div class="user-role" id="sidebarUserRole">AI&DS 2025-2029</div>
-        </div>
-      </div>
-      <div class="sidebar-actions">
-        <button type="button" class="icon-btn" id="installAppBtn" onclick="triggerInstallPrompt()" style="display:none;" title="Install App"><svg class="icon"><use href="#ic-download"/></svg></button>
-        <button type="button" class="icon-btn" onclick="openThemeOverlay()" title="Appearance"><svg class="icon"><use href="#ic-palette"/></svg></button>
-        <button type="button" class="icon-btn hidden" id="adminInboxBtn" onclick="openInboxModal()" title="Inbox"><svg class="icon"><use href="#ic-inbox"/></svg><span class="badge hidden" id="inboxBadge"></span></button>
-        <button type="button" class="icon-btn" id="notifBellBtn" onclick="handleNotifBell()" title="Notifications"><svg class="icon" id="notifBellIcon"><use href="#ic-bell"/></svg></button>
-      </div>
-    </div>
-  </nav>
+                        
+                        <div class="subject-tabs" id="subjectTabs">
+                            <button type="button" class="subject-tab active" data-tab="assignments" onclick="switchSubjectTab('assignments')">
+                                <svg class="icon"><use href="#ic-clipboard"/></svg>
+                                Assignments
+                                <span class="tab-count">0</span>
+                            </button>
+                            <button type="button" class="subject-tab" data-tab="syllabus" onclick="switchSubjectTab('syllabus')">
+                                <svg class="icon"><use href="#ic-book"/></svg>
+                                Syllabus
+                                <span class="tab-count">0</span>
+                            </button>
+                            <button type="button" class="subject-tab" data-tab="notes" onclick="switchSubjectTab('notes')">
+                                <svg class="icon"><use href="#ic-notebook"/></svg>
+                                Notes
+                                <span class="tab-count">0</span>
+                            </button>
+                        </div>
 
-  <main class="workspace">
-    <div class="mobile-header">
-      <button type="button" class="menu-toggle" onclick="toggleMobileSidebar()" aria-label="Toggle Menu"><span></span><span></span><span></span></button>
-      <div style="display:flex;align-items:center;gap:8px;flex:1;">
-        <div class="brand-icon" style="width:22px;height:22px;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><path d="M9 12l2.25 2.25L21 4"/></svg>
-        </div>
-        <span style="font-weight:600;font-size:1.1rem;letter-spacing:-.02em;color:var(--text-main);">NullYex</span>
-      </div>
-    </div>
+                        
+                        <div class="tab-panel" id="tabAssignments">
+                            <div class="tab-panel-actions">
+                                <button type="button" class="btn btn-primary hidden" id="adminAddAsgBtn" onclick="openAddAssignmentModal()">
+                                    <svg class="icon"><use href="#ic-plus"/></svg>
+                                    Add Assignment
+                                </button>
+                                <button type="button" class="btn btn-ghost" onclick="openComplaintModal()" id="studentReportBtn">
+                                    <svg class="icon"><use href="#ic-alert-circle"/></svg>
+                                    Report Issue
+                                </button>
+                                <div style="margin-left:auto; position:relative;">
+                                    <button type="button" class="btn btn-ghost text-xs" onclick="toggleSortDropdown(event)" style="padding:6px 10px;">
+                                        <svg class="icon"><use href="#ic-filter"/></svg>
+                                        <span id="sortLabel">Due Date</span>
+                                        <svg class="icon"><use href="#ic-chevron-down"/></svg>
+                                    </button>
+                                    <div class="datepicker-popover" id="sortDropMenu" style="right:0; left:auto; width:150px; padding:6px;">
+                                        <div class="sort-item" onclick="setSort('due_date')">Due Date</div>
+                                        <div class="sort-item" onclick="setSort('title')">Name</div>
+                                        <div class="sort-item" onclick="setSort('status')">Status</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="assignmentList" class="timeline"></div>
+                        </div>
 
-    <div class="workspace-content" id="workspaceContent">
-      <!-- Home view -->
-      <div id="welcomeView" class="hidden"></div>
+                        
+                        <div class="tab-panel hidden" id="tabSyllabus">
+                            <div class="tab-panel-actions">
+                                <button type="button" class="btn btn-primary hidden" id="adminAddSylBtn" onclick="openAddSyllabusModal()">
+                                    <svg class="icon"><use href="#ic-plus"/></svg>
+                                    Add Syllabus
+                                </button>
+                            </div>
+                            <div id="syllabusList" class="resources-list"></div>
+                        </div>
 
-      <!-- Subject view -->
-      <div id="subjectView" class="hidden">
-        <div class="workspace-header">
-          <h1 id="subjectTitle">Subject Name</h1>
-          <div class="subject-meta">
-            <span><svg class="icon"><use href="#ic-user"/></svg><span id="subjectTeacher">Teacher</span></span>
-            <div class="meta-divider"></div>
-            <span class="mono" id="subjectProgress">0/0 (0%)</span>
-          </div>
-        </div>
-        <div class="subject-tabs" id="subjectTabs">
-          <button type="button" class="subject-tab active" data-tab="assignments" onclick="switchSubjectTab('assignments')"><svg class="icon"><use href="#ic-clipboard"/></svg>Assignments<span class="tab-count">0</span></button>
-          <button type="button" class="subject-tab" data-tab="syllabus" onclick="switchSubjectTab('syllabus')"><svg class="icon"><use href="#ic-book"/></svg>Syllabus<span class="tab-count">0</span></button>
-          <button type="button" class="subject-tab" data-tab="notes" onclick="switchSubjectTab('notes')"><svg class="icon"><use href="#ic-notebook"/></svg>Notes<span class="tab-count">0</span></button>
-        </div>
-        <div class="tab-panel" id="tabAssignments">
-          <div class="tab-panel-actions">
-            <button type="button" class="btn btn-primary hidden" id="adminAddAsgBtn" onclick="openAddAssignmentModal()"><svg class="icon"><use href="#ic-plus"/></svg>Add Assignment</button>
-            <button type="button" class="btn btn-ghost" onclick="openComplaintModal()" id="studentReportBtn"><svg class="icon"><use href="#ic-alert-circle"/></svg>Report Issue</button>
-            <div style="margin-left:auto;position:relative;">
-              <button type="button" class="btn btn-ghost text-xs" onclick="toggleSortDropdown(event)" style="padding:6px 10px;"><svg class="icon"><use href="#ic-filter"/></svg><span id="sortLabel">Due Date</span><svg class="icon"><use href="#ic-chevron-down"/></svg></button>
-              <div class="datepicker-popover" id="sortDropMenu" style="right:0;left:auto;width:140px;padding:6px;">
-                <div class="sort-item" onclick="setSort('due_date')">Due Date</div>
-                <div class="sort-item" onclick="setSort('title')">Name</div>
-                <div class="sort-item" onclick="setSort('status')">Status</div>
-              </div>
-            </div>
-          </div>
-          <div id="assignmentList" class="timeline"></div>
-        </div>
-        <div class="tab-panel hidden" id="tabSyllabus">
-          <div class="tab-panel-actions">
-            <button type="button" class="btn btn-primary hidden" id="adminAddSylBtn" onclick="openAddSyllabusModal()"><svg class="icon"><use href="#ic-plus"/></svg>Add Syllabus</button>
-          </div>
-          <div id="syllabusList" class="resources-list"></div>
-        </div>
-        <div class="tab-panel hidden" id="tabNotes">
-          <div class="tab-panel-actions">
-            <button type="button" class="btn btn-primary hidden" id="adminAddNoteBtn" onclick="openAddNoteModal()"><svg class="icon"><use href="#ic-plus"/></svg>Add Note</button>
-          </div>
-          <div id="notesList" class="resources-list"></div>
-        </div>
-      </div>
-
-      <!-- Notices view (full page, admin-managed) -->
-      <div id="noticesView" class="hidden">
-        <div class="workspace-header" style="display:flex;justify-content:space-between;align-items:flex-end;">
-          <div><h1>General Notices</h1><div class="subject-meta">Class announcements &amp; files</div></div>
-          <button type="button" id="adminAddNoticeBtn" class="btn btn-primary hidden" onclick="openAddNoticeModal()"><svg class="icon"><use href="#ic-plus"/></svg>Post Notice</button>
-        </div>
-        <div id="noticesList" class="resources-list" style="margin-top:28px;max-width:900px;"></div>
-      </div>
-
-      <!-- AttendEX view -->
-      <div id="attendexView" class="hidden">
-        <div class="workspace-header">
-          <h1>AttendEX</h1>
-          <div class="subject-meta"><span>Smart attendance marking &amp; export</span></div>
-        </div>
-        <div class="ax-section" id="axSection">
-          <div class="ax-card">
-            <div class="ax-card-title" style="margin-bottom:14px;">Smart Schedule</div>
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;">
-              <div class="ax-day-tabs" id="axDayTabs" style="flex:1;margin-bottom:0;padding-bottom:0;border-bottom:none;"></div>
-              <button id="axAutoBtn" class="btn btn-ghost text-xs" style="display:none;white-space:nowrap;" onclick="axResetToAuto()">Manual Mode</button>
-            </div>
-            <div class="ax-timeline" id="axTimeline"></div>
-          </div>
-          <div class="ax-card">
-            <div class="ax-card-header">
-              <div>
-                <div class="ax-card-title">Attendance Register</div>
-                <div id="axSelectedSubject" style="font-size:.78rem;color:var(--accent);margin-top:2px;font-family:var(--font-mono);">No subject selected</div>
-              </div>
-              <input type="text" class="ax-search" id="axSearch" placeholder="Search..." oninput="axRenderHumans(this.value.toLowerCase())">
-            </div>
-            <div class="ax-stats" style="margin-bottom:14px;">
-              <div class="ax-stat"><div class="ax-stat-val" id="axTotal" style="color:var(--accent);">0</div><div class="ax-stat-lbl">Total</div></div>
-              <div class="ax-stat"><div class="ax-stat-val" id="axPresent" style="color:#4a9a5a;">0</div><div class="ax-stat-lbl">Present</div></div>
-              <div class="ax-stat"><div class="ax-stat-val" id="axAbsent" style="color:var(--danger);">0</div><div class="ax-stat-lbl">Absent</div></div>
-            </div>
-            <div class="ax-bulk-grid" style="margin-bottom:14px;">
-              <button class="btn btn-secondary text-xs" onclick="axMarkAll(true)">All Present</button>
-              <button class="btn btn-secondary text-xs" onclick="axMarkAll(false)">All Absent</button>
-              <button class="btn btn-ghost text-xs" onclick="axResetAll()">Reset All</button>
-            </div>
-            <div style="font-size:.7rem;color:var(--text-muted);margin-bottom:10px;">&gt; Click row to toggle · Null → Present → Absent</div>
-            <div class="ax-human-list" id="axHumanList"></div>
-          </div>
-          <div class="ax-card">
-            <div class="ax-card-title" style="margin-bottom:14px;">Export</div>
-            <div class="ax-filter-grid" style="margin-bottom:12px;">
-              <div class="ax-toggle active" id="axTPres" onclick="axToggleOpt('axTPres')"><span>Present Only</span><span id="axTPresIcon">●</span></div>
-              <div class="ax-toggle active" id="axTRoll" onclick="axToggleOpt('axTRoll')"><span>Roll No</span><span id="axTRollIcon">●</span></div>
-              <div class="ax-toggle active" id="axTName" onclick="axToggleOpt('axTName')"><span>Name</span><span id="axTNameIcon">●</span></div>
-            </div>
-            <div class="ax-export-grid">
-              <button class="ax-btn primary" onclick="axExportXLSX()">Export .xlsx</button>
-              <button class="ax-btn" onclick="axExportTxt()">Export .txt</button>
-              <button class="ax-btn" onclick="axViewRaw()">View Raw</button>
-              <button class="ax-btn" onclick="axShareWA()" style="display:flex;align-items:center;justify-content:center;gap:6px;border-color:var(--accent);color:var(--accent);">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#25D366" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
-                WhatsApp
-              </button>
-            </div>
-            <textarea id="axRawOutput" class="ax-text-output" style="display:none;" readonly></textarea>
-          </div>
-        </div>
-      </div>
-
-      <!-- Cover page view -->
-      <div id="coverPageView" class="hidden">
+                        
+                        <div class="tab-panel hidden" id="tabNotes">
+                            <div class="tab-panel-actions">
+                                <button type="button" class="btn btn-primary hidden" id="adminAddNoteBtn" onclick="openAddNoteModal()">
+                                    <svg class="icon"><use href="#ic-plus"/></svg>
+                                    Add Note
+                                </button>
+                            </div>
+                            <div id="notesList" class="resources-list"></div>
+                        </div>
+                    </div>
+                    <div id="noticesView" class="hidden">
+                        <div class="workspace-header" style="display:flex; justify-content:space-between; align-items:flex-end;">
+                            <div>
+                                <h1>General Notices</h1>
+                                <div class="subject-meta">Class announcements &amp;files</div>
+                            </div>
+                            <button type="button" id="adminAddNoticeBtn" class="btn btn-primary hidden" onclick="openAddNoticeModal()">
+                                <svg class="icon">
+                                    <use href="#ic-plus"/>
+                                </svg>
+                                Post Notice
+                        
+                            </button>
+                        </div>
+                        <div id="noticesList" class="resources-list" style="margin-top: 32px; max-width: 900px;"></div>
+                    </div>
+                    <div id="coverPageView" class="hidden">
                         <div class="workspace-header" style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 0; flex-shrink: 0;">
                             <div>
                                 <h1>Cover Page</h1>
@@ -2733,34 +2720,11 @@ body{height:100dvh;overflow:hidden;display:flex;flex-direction:column;}
                                 </div>
                             </div>
                         </div>
-
-      <!-- Profile view -->
-      <div id="profileView" class="hidden">
-        <div class="workspace-header"><h1>My Profile</h1><div class="subject-meta">AI &amp; DS Batch 2025–2029</div></div>
-        <div class="profile-view">
-          <div id="profileAvatarXL" class="profile-avatar-xl">?</div>
-          <div class="profile-grid" id="profileGrid">
-            <span class="profile-lbl">Name</span><span class="profile-val" id="pName">—</span>
-            <span class="profile-lbl">Email</span><span class="profile-val" id="pEmail">—</span>
-            <span class="profile-lbl">Enrollment</span><span class="profile-val" id="pEnroll">—</span>
-            <span class="profile-lbl">Roll No</span><span class="profile-val" id="pRoll">—</span>
-            <span class="profile-lbl">Section</span><span class="profile-val" id="pSection">—</span>
-            <span class="profile-lbl">Batch</span><span class="profile-val" id="pBatch">—</span>
-            <span class="profile-lbl">Program</span><span class="profile-val" id="pProgram">—</span>
-          </div>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <button class="btn btn-ghost" onclick="openThemeOverlay()"><svg class="icon"><use href="#ic-palette"/></svg>Change Theme</button>
-            <button class="btn btn-danger" onclick="doSignOut()" style="margin-left:auto;"><svg class="icon"><use href="#ic-logout"/></svg>Sign Out</button>
-          </div>
+                    </div>
+                </div>
+            </main>
         </div>
-      </div>
-
-    </div>
-  </main>
-</div>
-
-<!-- MODALS -->
-<div id="themeOverlay" class="modal-overlay" onclick="closeOnOutside(event,'themeOverlay')">
+        <div id="themeOverlay" class="modal-overlay" onclick="closeOnOutside(event,'themeOverlay')">
             <div class="theme-panel" id="themePanel" onclick="event.stopPropagation()">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
                     <h3 style="font-size:1.1rem; font-weight:600;">Appearance</h3>
@@ -2814,192 +2778,62 @@ body{height:100dvh;overflow:hidden;display:flex;flex-direction:column;}
                 </div>
             </div>
         </div>
-<div id="assignmentModal" class="modal-overlay" onclick="closeOnOutside(event,'assignmentModal')">
-            <div class="modal">
-                <div class="modal-header">
-                    <h2 id="asgModalTitle">Add Assignment</h2>
-                    <button type="button" class="btn btn-ghost btn-icon" onclick="closeModal('assignmentModal')">
-                        <svg class="icon">
-                            <use href="#ic-x"/>
-                        </svg>
-                    </button>
+        <div id="signInModal" class="modal-overlay" onclick="closeOnOutside(event,'signInModal')" style="display:flex; align-items:center; padding:16px;">
+            <div class="modal signin-card" style="margin:auto; width:100%; max-width:400px; transform:none;">
+                <button type="button" class="btn btn-ghost btn-icon" onclick="closeModal('signInModal')" style="position:absolute; top:16px; right:16px; z-index:50;">
+                    <svg class="icon">
+                        <use href="#ic-x"/>
+                    </svg>
+                </button>
+                <div class="signin-logo">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                        <path d="M9 12l2.25 2.25L21 4"/>
+                    </svg>
                 </div>
-                <div class="modal-body">
-                    <input type="hidden" id="asgId">
-                    <div class="form-group">
-                        <label class="form-label">Title</label>
-                        <input type="text" id="asgTitle" class="input" placeholder="e.g. Chapter 3 Exercises">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Subject</label>
-                        <select id="asgSubject" class="input"></select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Due Date</label>
-                        <div class="datepicker-wrapper" id="dpWrapper">
-                            <div class="input datepicker-trigger" onclick="toggleDatePicker(event)" id="dpTrigger">
-                                <span id="dpDisplay">No due date</span>
-                                <svg class="icon">
-                                    <use href="#ic-calendar"/>
-                                </svg>
-                            </div>
-                            <input type="hidden" id="asgDueDate">
-                            <div class="datepicker-popover" id="dpPopover" onclick="event.stopPropagation()">
-                                <div class="dp-header">
-                                    <button type="button" class="btn btn-ghost btn-icon" onclick="changeMonth(-1)">
-                                        <svg class="icon">
-                                            <use href="#ic-chevron-left"/>
-                                        </svg>
-                                    </button>
-                                    <strong id="dpMonthYear" class="mono text-xs"></strong>
-                                    <button type="button" class="btn btn-ghost btn-icon" onclick="changeMonth(1)">
-                                        <svg class="icon">
-                                            <use href="#ic-chevron-right"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <div class="dp-grid" id="dpGrid"></div>
-                                <div style="margin-top:8px; border-top:1px solid var(--border); padding-top:8px;">
-                                    <button type="button" class="btn btn-ghost text-xs" style="width:100%; justify-content:center;" onclick="clearDueDate()">
-                                        <svg class="icon">
-                                            <use href="#ic-circle-x"/>
-                                        </svg>
-                                        No Due Date
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Remarks (Optional)</label>
-                        <input type="text" id="asgRemarks" class="input" placeholder="e.g. Submit hardcopy as well">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Question File (PDF/Doc/Image, max 50MB)</label>
-                        <input type="file" id="asgQuestionFile" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" style="display:none;" onchange="updateFileLabel('asgQuestionFile','asgQuestionFileLabel')">
-                        <div class="file-pick-row">
-                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('asgQuestionFile').click()">
-                                <svg class="icon"><use href="#ic-upload"/></svg>
-                                Choose File
-                            </button>
-                            <span class="file-pick-name" id="asgQuestionFileLabel">No file chosen</span>
-                        </div>
-                        <div class="upload-progress-wrap" id="asgUploadProgress">
-                            <div class="upload-progress-fill" id="asgUploadFill"></div>
-                        </div>
-                    </div>
-                    <div class="or-divider">— OR —</div>
-                    <div class="form-group">
-                        <label class="form-label">Question File URL</label>
-                        <input type="url" id="asgQuestionUrl" class="input" placeholder="https://...">
-                    </div>
-                </div>
-                <div class="modal-footer" style="justify-content:space-between;">
-                    <button type="button" class="btn btn-danger hidden" id="deleteAsgBtn" onclick="deleteAssignment()">
-                        <svg class="icon">
-                            <use href="#ic-trash"/>
-                        </svg>
-                        Delete
+                <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 8px;">Welcome back</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 32px;">Sign in to track assignments, upload answers, and collaborate.</p>
+                <button type="button" class="signin-btn" onclick="signInWithGoogle()" id="googleSignInBtn">
+                    <svg width="18" height="18" viewBox="0 0 24 24">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    Continue with Google
                 
-                    </button>
-                    <div style="display:flex;gap:10px;">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('assignmentModal')">Cancel</button>
-                        <button type="button" class="btn btn-primary" onclick="saveAssignment()" id="saveAsgBtn">Save</button>
-                    </div>
-                </div>
+                </button>
             </div>
         </div>
-<div id="syllabusModal" class="modal-overlay" onclick="closeOnOutside(event,'syllabusModal')">
+        <div id="uploadModal" class="modal-overlay" onclick="closeOnOutside(event,'uploadModal')">
             <div class="modal">
                 <div class="modal-header">
-                    <h2 id="sylModalTitle">Add Syllabus</h2>
-                    <button type="button" class="btn btn-ghost btn-icon" onclick="closeModal('syllabusModal')">
+                    <h2>Upload Answer</h2>
+                    <button type="button" class="btn btn-ghost btn-icon" onclick="closeModal('uploadModal')">
                         <svg class="icon">
                             <use href="#ic-x"/>
                         </svg>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" id="sylId">
+                    <input type="hidden" id="uploadAsgId">
                     <div class="form-group">
-                        <label class="form-label">Unit / Topic Title</label>
-                        <input type="text" id="sylTitle" class="input" placeholder="e.g. Unit 1 – Limits &amp; Derivatives">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Description / Content</label>
-                        <textarea id="sylBody" class="input" rows="5" placeholder="List topics, sub-topics, outcomes..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">File Upload (PDF/Doc/Image, max 50MB)</label>
-                        <input type="file" id="sylFile" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" style="display:none;" onchange="updateFileLabel('sylFile','sylFileLabel')">
-                        <div class="file-pick-row">
-                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('sylFile').click()">
-                                <svg class="icon">
-                                    <use href="#ic-upload"/>
-                                </svg>
-                                Choose File
-                            </button>
-                            <span class="file-pick-name" id="sylFileLabel">No file chosen</span>
-                        </div>
+                        <label class="form-label">File (PDF/Word/Image, max 50MB)</label>
+                        <input type="file" id="uploadFile" class="input" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
                     </div>
                     <div class="or-divider">— OR —</div>
                     <div class="form-group">
-                        <label class="form-label">Reference Link (Optional)</label>
-                        <input type="url" id="sylUrl" class="input" placeholder="https://...">
+                        <label class="form-label">External Link (Drive, Docs, etc.)</label>
+                        <input type="url" id="uploadUrl" class="input" placeholder="https://...">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('syllabusModal')">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="saveSyllabus()" id="saveSylBtn">Save</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('uploadModal')">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="submitUpload()" id="submitUploadBtn">Upload</button>
                 </div>
             </div>
         </div>
-<div id="noteModal" class="modal-overlay" onclick="closeOnOutside(event,'noteModal')">
-            <div class="modal">
-                <div class="modal-header">
-                    <h2 id="noteModalTitle">Add Note</h2>
-                    <button type="button" class="btn btn-ghost btn-icon" onclick="closeModal('noteModal')">
-                        <svg class="icon">
-                            <use href="#ic-x"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="noteId">
-                    <div class="form-group">
-                        <label class="form-label">Title</label>
-                        <input type="text" id="noteTitle" class="input" placeholder="e.g. Week 3 Lecture Notes">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Content</label>
-                        <textarea id="noteBody" class="input" rows="6" placeholder="Notes, key points, summaries..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">File Upload (PDF/Doc/Image, max 50MB)</label>
-                        <input type="file" id="noteFile" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" style="display:none;" onchange="updateFileLabel('noteFile','noteFileLabel')">
-                        <div class="file-pick-row">
-                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('noteFile').click()">
-                                <svg class="icon">
-                                    <use href="#ic-upload"/>
-                                </svg>
-                                Choose File
-                            </button>
-                            <span class="file-pick-name" id="noteFileLabel">No file chosen</span>
-                        </div>
-                    </div>
-                    <div class="or-divider">— OR —</div>
-                    <div class="form-group">
-                        <label class="form-label">File / Drive Link (Optional)</label>
-                        <input type="url" id="noteUrl" class="input" placeholder="https://...">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('noteModal')">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="saveNote()" id="saveNoteBtn">Save</button>
-                </div>
-            </div>
-        </div>
-<div id="noticeModal" class="modal-overlay" onclick="closeOnOutside(event,'noticeModal')">
+        <div id="noticeModal" class="modal-overlay" onclick="closeOnOutside(event,'noticeModal')">
             <div class="modal">
                 <div class="modal-header">
                     <h2 id="noticeModalTitle">Post Notice</h2>
@@ -3215,7 +3049,7 @@ body{height:100dvh;overflow:hidden;display:flex;flex-direction:column;}
                 </div>
             </div>
         </div>
-<div id="complaintModal" class="modal-overlay" onclick="closeOnOutside(event,'complaintModal')">
+        <div id="complaintModal" class="modal-overlay" onclick="closeOnOutside(event,'complaintModal')">
             <div class="modal">
                 <div class="modal-header">
                     <h2>Report Issue / Request</h2>
@@ -3261,7 +3095,7 @@ body{height:100dvh;overflow:hidden;display:flex;flex-direction:column;}
                 </div>
             </div>
         </div>
-<div id="inboxModal" class="modal-overlay" onclick="closeOnOutside(event,'inboxModal')">
+        <div id="inboxModal" class="modal-overlay" onclick="closeOnOutside(event,'inboxModal')">
             <div class="modal modal-wide">
                 <div class="modal-header">
                     <h2>
@@ -3281,272 +3115,341 @@ body{height:100dvh;overflow:hidden;display:flex;flex-direction:column;}
                 <div class="modal-body" id="inboxList" style="padding:16px;"></div>
             </div>
         </div>
-<div id="uploadModal" class="modal-overlay" onclick="closeOnOutside(event,'uploadModal')">
-            <div class="modal">
-                <div class="modal-header">
-                    <h2>Upload Answer</h2>
-                    <button type="button" class="btn btn-ghost btn-icon" onclick="closeModal('uploadModal')">
-                        <svg class="icon">
-                            <use href="#ic-x"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="uploadAsgId">
-                    <div class="form-group">
-                        <label class="form-label">File (PDF/Word/Image, max 50MB)</label>
-                        <input type="file" id="uploadFile" class="input" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg">
-                    </div>
-                    <div class="or-divider">— OR —</div>
-                    <div class="form-group">
-                        <label class="form-label">External Link (Drive, Docs, etc.)</label>
-                        <input type="url" id="uploadUrl" class="input" placeholder="https://...">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('uploadModal')">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="submitUpload()" id="submitUploadBtn">Upload</button>
-                </div>
+        <div id="profileModal" class="modal-overlay" onclick="closeOnOutside(event,'profileModal')" style="display:flex; align-items:center; padding:16px;">
+            <div class="modal" style="margin:auto; width:100%; max-width:320px; text-align: center; padding: 32px 24px; transform:none;">
+                <button type="button" class="btn btn-ghost btn-icon" onclick="closeModal('profileModal')" style="position:absolute; top:12px; right:12px; z-index:50;">
+                    <svg class="icon">
+                        <use href="#ic-x"/>
+                    </svg>
+                </button>
+                <div class="avatar" id="profileAvatarLarge" style="width: 64px; height: 64px; font-size: 1.5rem; margin: 0 auto 16px;"></div>
+                <h3 id="profileNameModal" style="font-size: 1.2rem; margin-bottom: 4px;">Name</h3>
+                <p id="profileEmailModal" style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px;">
+                    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="98fdf5f9f1f4d8fde0f9f5e8f4fdb6fbf7f5">[email &#160;protected]</a>
+                </p>
+                <button type="button" class="btn btn-danger" style="width: 100%; justify-content: center;" onclick="signOut()">
+                    <svg class="icon">
+                        <use href="#ic-logout"/>
+                    </svg>
+                    Sign Out
+            
+                </button>
             </div>
         </div>
-        <div id="noticeModal" class="modal-overlay" onclick="closeOnOutside(event,'noticeModal')">
-            <div class="modal">
-                <div class="modal-header">
-                    <h2 id="noticeModalTitle">Post Notice</h2>
-                    <button type="button" class="btn btn-ghost btn-icon" onclick="closeModal('noticeModal')">
-                        <svg class="icon">
-                            <use href="#ic-x"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="noticeId">
-                    <div class="form-group">
-                        <label class="form-label">Title *</label>
-                        <input type="text" id="noticeTitle" class="input">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Message</label>
-                        <textarea id="noticeBody" class="input" rows="4"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">File URL (Optional)</label>
-                        <input type="url" id="noticeFileUrl" class="input">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="closeModal('noticeModal')">Cancel</button>
-                    <button type="button" class="btn btn-primary" onclick="saveNotice()" id="saveNoticeBtn">Post</button>
-                </div>
-            </div>
-        </div>
-        <div id="assignmentModal" class="modal-overlay" onclick="closeOnOutside(event,'assignmentModal')">
-            <div class="modal">
-                <div class="modal-header">
-                    <h2 id="asgModalTitle">Add Assignment</h2>
-                    <button type="button" class="btn btn-ghost btn-icon" onclick="closeModal('assignmentModal')">
-                        <svg class="icon">
-                            <use href="#ic-x"/>
-                        </svg>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="asgId">
-                    <div class="form-group">
-                        <label class="form-label">Title</label>
-                        <input type="text" id="asgTitle" class="input" placeholder="e.g. Chapter 3 Exercises">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Subject</label>
-                        <select id="asgSubject" class="input"></select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Due Date</label>
-                        <div class="datepicker-wrapper" id="dpWrapper">
-                            <div class="input datepicker-trigger" onclick="toggleDatePicker(event)" id="dpTrigger">
-                                <span id="dpDisplay">No due date</span>
-                                <svg class="icon">
-                                    <use href="#ic-calendar"/>
-                                </svg>
-                            </div>
-                            <input type="hidden" id="asgDueDate">
-                            <div class="datepicker-popover" id="dpPopover" onclick="event.stopPropagation()">
-                                <div class="dp-header">
-                                    <button type="button" class="btn btn-ghost btn-icon" onclick="changeMonth(-1)">
-                                        <svg class="icon">
-                                            <use href="#ic-chevron-left"/>
-                                        </svg>
-                                    </button>
-                                    <strong id="dpMonthYear" class="mono text-xs"></strong>
-                                    <button type="button" class="btn btn-ghost btn-icon" onclick="changeMonth(1)">
-                                        <svg class="icon">
-                                            <use href="#ic-chevron-right"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <div class="dp-grid" id="dpGrid"></div>
-                                <div style="margin-top:8px; border-top:1px solid var(--border); padding-top:8px;">
-                                    <button type="button" class="btn btn-ghost text-xs" style="width:100%; justify-content:center;" onclick="clearDueDate()">
-                                        <svg class="icon">
-                                            <use href="#ic-circle-x"/>
-                                        </svg>
-                                        No Due Date
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Remarks (Optional)</label>
-                        <input type="text" id="asgRemarks" class="input" placeholder="e.g. Submit hardcopy as well">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Question File (PDF/Doc/Image, max 50MB)</label>
-                        <input type="file" id="asgQuestionFile" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" style="display:none;" onchange="updateFileLabel('asgQuestionFile','asgQuestionFileLabel')">
-                        <div class="file-pick-row">
-                            <button type="button" class="btn btn-secondary" onclick="document.getElementById('asgQuestionFile').click()">
-                                <svg class="icon"><use href="#ic-upload"/></svg>
-                                Choose File
-                            </button>
-                            <span class="file-pick-name" id="asgQuestionFileLabel">No file chosen</span>
-                        </div>
-                        <div class="upload-progress-wrap" id="asgUploadProgress">
-                            <div class="upload-progress-fill" id="asgUploadFill"></div>
-                        </div>
-                    </div>
-                    <div class="or-divider">— OR —</div>
-                    <div class="form-group">
-                        <label class="form-label">Question File URL</label>
-                        <input type="url" id="asgQuestionUrl" class="input" placeholder="https://...">
-                    </div>
-                </div>
-                <div class="modal-footer" style="justify-content:space-between;">
-                    <button type="button" class="btn btn-danger hidden" id="deleteAsgBtn" onclick="deleteAssignment()">
-                        <svg class="icon">
-                            <use href="#ic-trash"/>
-                        </svg>
-                        Delete
-                
-                    </button>
-                    <div style="display:flex;gap:10px;">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('assignmentModal')">Cancel</button>
-                        <button type="button" class="btn btn-primary" onclick="saveAssignment()" id="saveAsgBtn">Save</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div id="toastContainer" class="toast-container"></div>
+        <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+        <script>
+            const API_BASE_URL = 'https://nullyex-worker.nulllyex.workers.dev';
+            const ADMIN_EMAILS = ['farhankhalid626@gmail.com', 'gissamrit@gmail.com'];
+            const VAPID_PUBLIC_KEY = 'BBy1dbu2GE1ODuR0WGCBjsTgQ3PJWuOyYTG5zdz9BCf_dON4mAbqN3uhqgCFHTt6S0My5Txub8NU_ptNjn_u1aA';
 
-<div id="toastContainer" class="toast-container"></div>
+            let supabaseClient;
+            try {
+                if (window.supabase) {
+                    supabaseClient = window.supabase.createClient('https://gncrvvtwmluowyiofpqy.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduY3J2dnR3bWx1b3d5aW9mcHF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3Mzc4MDgsImV4cCI6MjA4OTMxMzgwOH0.FsdFjmR-vYw2mLztbnmonG1gYJjIYIVFWi-1XaPVOLQ', {
+                        auth: {
+                            persistSession: true,
+                            autoRefreshToken: true
+                        }
+                    });
+                }
+            } catch (e) {
+                console.error('Supabase init error:', e);
+            }
 
-<script>
-const API_BASE_URL = 'https://round-bar-2dd4.onestreakgaming2.workers.dev';
-const VAPID_PUBLIC_KEY = 'BBy1dbu2GE1ODuR0WGCBjsTgQ3PJWuOyYTG5zdz9BCf_dON4mAbqN3uhqgCFHTt6S0My5Txub8NU_ptNjn_u1aA';
-const SUPABASE_URL = 'https://ypdnqohwqmhgvssgucpq.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwZG5xb2h3cW1oZ3Zzc2d1Y3BxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5Nzk3MDEsImV4cCI6MjA4OTU1NTcwMX0.NqC_id6Urp5IBvutSDYs3m2x3BsD6edvKYlOHFzjIn8';
-
-let supabaseClient;
-try {
-    if (window.supabase) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {auth:{persistSession:true,autoRefreshToken:true}});
-    }
-} catch(e) { console.error('Supabase init error:', e); }
-
-const SUBJECTS = [
-    {id:'sub_1',name:'Engineering Mathematics\u2013II',teacher:'Prof. Deepa Mandal'},
-    {id:'sub_2',name:'Engineering Chemistry',teacher:'Dr. ChandraPrabha Sahu'},
-    {id:'sub_3',name:'Programming with Python',teacher:'IBM SUBJECT EXPERT'},
-    {id:'sub_4',name:'English for Skill Enhancement',teacher:'Dr. Monika Singh'},
-    {id:'sub_5',name:'Universal Human Values',teacher:'Dr Binod Kumar Choudhary'},
-    {id:'sub_6',name:'Manufacturing Practice',teacher:'Dr. Shailendra kr Prashad'},
-    {id:'sub_7',name:'Constitution Of India',teacher:'Dr. Prem Nath Suman'},
-    {id:'sub_8',name:'Engineering Chemistry Lab',teacher:'Mr. Abhijit Mandal',isLab:true},
-    {id:'sub_9',name:'Programming with Python Lab',teacher:'IBM SUBJECT EXPERT',isLab:true},
-    {id:'sub_10',name:'Design Thinking & Idea Lab',teacher:'Mr. Santosh Kumar Sah',isLab:true},
-    {id:'sub_11',name:'Engineering Workshop',teacher:'Mr. Jai Narayan',isLab:true},
-    {id:'sub_12',name:'English Language & Comm. Lab',teacher:'Dr. Monika Singh',isLab:true}
-];
-
-const state = {
-    user: null, isAdmin: false, profile: null,
-    assignments: [], syllabus: [], notes: [], notices: [],
-    currentView: 'home', currentSubjectId: null,
-    activeSubjectTab: 'assignments', sortBy: 'due_date',
-    theme: localStorage.getItem('app_theme') || 'default',
-    colorMode: localStorage.getItem('app_color_mode') || 'dark',
-    dpCurrentMonth: new Date().getMonth(), dpCurrentYear: new Date().getFullYear()
-};
-
-async function doSignOut() {
-    if (!supabaseClient) return;
-    await unsubscribePush().catch(()=>{});
-    await supabaseClient.auth.signOut();
-    window.location.href = './index.html';
-}
-
-function handleProfileClick() {
-    switchView('profile');
-}
-
-async function loadUserProfile(uid) {
-    try {
-        const { data } = await supabaseClient.from('student_profiles').select('*').eq('user_id', uid).single();
-        state.profile = data;
-        if (data) {
-            const nameEl = document.getElementById('sidebarUserName');
-            const roleEl = document.getElementById('sidebarUserRole');
-            if (nameEl) nameEl.textContent = data.full_name || state.user?.user_metadata?.full_name || 'Student';
-            if (roleEl) roleEl.textContent = data.enrollment_no || 'AI&DS 2025-2029';
-            renderProfileView(data);
-        }
-    } catch(e) {}
-}
-
-function renderProfileView(p) {
-    const avatarEl = document.getElementById('profileAvatarXL');
-    const avatarUrl = state.user?.user_metadata?.avatar_url;
-    if (avatarEl) {
-        if (avatarUrl) avatarEl.innerHTML = `<img src="${avatarUrl}" alt="">`;
-        else {
-            const initials = p.full_name ? p.full_name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase() : '??';
-            avatarEl.textContent = initials;
-        }
-    }
-    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val || '—'; };
-    set('pName', p.full_name || state.user?.user_metadata?.full_name);
-    set('pEmail', p.email || state.user?.email);
-    set('pEnroll', p.enrollment_no);
-    set('pRoll', p.roll_no);
-    set('pSection', p.section ? 'Section ' + p.section : null);
-    set('pBatch', p.batch);
-    set('pProgram', p.program);
-
-    const sidebarAvatar = document.getElementById('sidebarAvatar');
-    const avatarUrlSb = state.user?.user_metadata?.avatar_url;
-    if (sidebarAvatar) {
-        if (avatarUrlSb) sidebarAvatar.innerHTML = `<img src="${avatarUrlSb}" alt="">`;
-        else {
-            const name = p.full_name || state.user?.user_metadata?.full_name || '';
-            sidebarAvatar.textContent = name ? name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase() : '?';
-        }
-    }
-}
-
-</script>
-<script>
-
-            const ACCENTS = [
-                { id: 'default', name: 'Mono', color: '#f3f3f6' },
-                { id: 'midnight', name: 'Cobalt', color: '#5a9cf5' },
-                { id: 'forest', name: 'Emerald', color: '#50c878' },
-                { id: 'ocean', name: 'Teal', color: '#40c8c0' },
-                { id: 'berry', name: 'Rose', color: '#d870e8' },
-                { id: 'violet', name: 'Violet', color: '#a070f0' },
-                { id: 'royal', name: 'Amber', color: '#f0b830' },
-                { id: 'sunset', name: 'Coral', color: '#f07050' },
-                { id: 'coffee', name: 'Warm', color: '#e09050' },
-                { id: 'slate', name: 'Slate', color: '#88aacc' }
+            const SUBJECTS = [
+                {
+                    id: 'sub_1',
+                    name: 'Engineering Mathematics\u2013II',
+                    teacher: 'Prof. Deepa Mandal'
+                },
+                {
+                    id: 'sub_2',
+                    name: 'Engineering Chemistry',
+                    teacher: 'Dr. ChandraPrabha Sahu'
+                },
+                {
+                    id: 'sub_3',
+                    name: 'Programming with Python',
+                    teacher: 'IBM SUBJECT EXPERT'
+                },
+                {
+                    id: 'sub_4',
+                    name: 'English for Skill Enhancement',
+                    teacher: 'Dr. Monika Singh'
+                },
+                {
+                    id: 'sub_5',
+                    name: 'Universal Human Values',
+                    teacher: 'Dr Binod Kumar Choudhary'
+                },
+                {
+                    id: 'sub_6',
+                    name: 'Manufacturing Practice',
+                    teacher: 'Dr. Shailendra kr Prashad'
+                },
+                {
+                    id: 'sub_7',
+                    name: 'Constitution Of India',
+                    teacher: 'Dr. Prem Nath Suman'
+                },
+                {
+                    id: 'sub_8',
+                    name: 'Engineering Chemistry Lab',
+                    teacher: 'Mr. Abhijit Mandal',
+                    isLab: true
+                },
+                {
+                    id: 'sub_9',
+                    name: 'Programming with Python Lab',
+                    teacher: 'IBM SUBJECT EXPERT',
+                    isLab: true
+                },
+                {
+                    id: 'sub_10',
+                    name: 'Design Thinking & Idea Lab',
+                    teacher: 'Mr. Santosh Kumar Sah',
+                    isLab: true
+                },
+                {
+                    id: 'sub_11',
+                    name: 'Engineering Workshop',
+                    teacher: 'Mr. Jai Narayan',
+                    isLab: true
+                },
+                {
+                    id: 'sub_12',
+                    name: 'English Language & Comm. Lab',
+                    teacher: 'Dr. Monika Singh',
+                    isLab: true
+                }
             ];
 
+            const state = {
+                user: null,
+                isAdmin: false,
+                assignments: [],
+                syllabus: [],
+                notes: [],
+                notices: [],
+                currentView: 'home',
+                currentSubjectId: null,
+                activeSubjectTab: 'assignments',
+                sortBy: 'due_date',
+                theme: localStorage.getItem('app_theme') || 'default',
+                colorMode: localStorage.getItem('app_color_mode') || 'dark',
+                dpCurrentMonth: new Date().getMonth(),
+                dpCurrentYear: new Date().getFullYear()
+            };
+
+            function getInitials(name, email) {
+                if (name) {
+                    const p = name.trim().split(/\s+/);
+                    return p.length >= 2 ? (p[0][0] + p[1][0]).toUpperCase() : p[0].substring(0, 2).toUpperCase();
+                }
+                return email ? email.substring(0, 2).toUpperCase() : '??';
+            }
+            function formatDate(ds) {
+                if (!ds)
+                    return '';
+                const d = new Date(ds);
+                return new Date(d.getTime() + Math.abs(d.getTimezoneOffset() * 60000)).toLocaleDateString('en-IN', {
+                    month: 'short',
+                    day: 'numeric'
+                });
+            }
+            function getDaysDiff(ds) {
+                if (!ds)
+                    return 999;
+                const due = new Date(ds);
+                const dl = new Date(due.getTime() + Math.abs(due.getTimezoneOffset() * 60000));
+                dl.setHours(23, 59, 59, 999);
+                return Math.ceil((dl - new Date()) / (1000 * 60 * 60 * 24));
+            }
+            function showToast(message, type='success') {
+                const c = document.getElementById('toastContainer');
+                const t = document.createElement('div');
+                t.className = `toast ${type}`;
+                t.innerHTML = `${type === 'success' ? '<svg class="icon icon-xl" style="color:var(--success);font-size:20px;flex-shrink:0;"><use href="#ic-check-circle"/></svg>' : '<svg class="icon icon-xl" style="color:var(--danger);font-size:20px;flex-shrink:0;"><use href="#ic-alert-circle-filled"/></svg>'}
+                <div>${message}</div>`;
+                c.appendChild(t);
+                setTimeout( () => t.classList.add('show'), 10);
+                setTimeout( () => {
+                    t.classList.remove('show');
+                    setTimeout( () => t.remove(), 300);
+                }
+                , 3500);
+            }
+
+            function openModal(id) {
+                const el = document.getElementById(id);
+                if (el)
+                    el.classList.add('active');
+            }
+            function closeModal(id) {
+                const el = document.getElementById(id);
+                if (el)
+                    el.classList.remove('active');
+                if (id === 'assignmentModal')
+                    closeDatePicker();
+            }
+            function closeOnOutside(e, id) {
+                if (e.target.id === id)
+                    closeModal(id);
+            }
+
+            document.addEventListener('click', function(e) {
+                const sortMenu = document.getElementById('sortDropMenu');
+                if (sortMenu && !sortMenu.contains(e.target)) {
+                    sortMenu.classList.remove('active');
+                }
+
+                const dpWrapper = document.getElementById('dpWrapper');
+                if (dpWrapper && !dpWrapper.contains(e.target)) {
+                    closeDatePicker();
+                }
+            });
+
+            async function apiFetch(endpoint, method='GET', data=null) {
+                const controller = new AbortController();
+                const timeout = setTimeout( () => controller.abort(), 5000);
+                const options = {
+                    method,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    signal: controller.signal
+                };
+
+                if (method === 'POST' || method === 'PATCH' || method === 'DELETE') {
+                    try {
+                        const {data: {session}} = await supabaseClient.auth.getSession();
+                        if (session?.access_token) {
+                            options.headers['Authorization'] = `Bearer ${session.access_token}`;
+                        }
+                    } catch (e) {}
+
+                    if (data) {
+                        let token = '';
+                        try {
+                            if (window.turnstile)
+                                token = window.turnstile.getResponse() || '';
+                        } catch (e) {}
+                        options.body = JSON.stringify({
+                            turnstileToken: token,
+                            data
+                        });
+                    }
+                }
+
+                try {
+                    const res = await fetch(`${API_BASE_URL}${endpoint}`, options);
+                    clearTimeout(timeout);
+                    if (window.turnstile) {
+                        try {
+                            window.turnstile.reset();
+                        } catch (e) {}
+                    }
+                    if (!res.ok) {
+                        const errText = await res.text();
+                        throw new Error(errText || `API error ${res.status}`);
+                    }
+                    const text = await res.text();
+                    return text ? JSON.parse(text) : null;
+                } catch (err) {
+                    clearTimeout(timeout);
+                    throw err;
+                }
+            }
+
+            async function checkAuth() {
+                if (!supabaseClient)
+                    return;
+                try {
+                    const {data: {session}} = await supabaseClient.auth.getSession();
+                    updateAuthState(session);
+                    supabaseClient.auth.onAuthStateChange( (_, session) => updateAuthState(session));
+                } catch (e) {}
+            }
+            function updateAuthState(session) {
+                state.user = session?.user || null;
+                state.isAdmin = ADMIN_EMAILS.includes(state.user?.email);
+                updateSidebarFooter();
+                renderAdminControls();
+                if (state.isAdmin)
+                    fetchUnreadCount();
+            }
+            async function signInWithGoogle() {
+                if (!supabaseClient) {
+                    showToast('Service unavailable', 'error');
+                    return;
+                }
+                try {
+                    const {error} = await supabaseClient.auth.signInWithOAuth({
+                        provider: 'google',
+                        options: {
+                            redirectTo: window.location.href.split('?')[0].split('#')[0]
+                        }
+                    });
+                    if (error)
+                        throw error;
+                } catch (e) {
+                    showToast(e.message, 'error');
+                }
+            }
+            async function signOut() {
+                if (!supabaseClient)
+                    return;
+                await unsubscribePush();
+                await supabaseClient.auth.signOut();
+                closeModal('profileModal');
+                showToast('Signed out');
+            }
+            function requireAuth(cb) {
+                state.user ? cb() : openModal('signInModal');
+            }
+
+            const ACCENTS = [{
+                id: 'default',
+                name: 'Mono',
+                color: '#f3f3f6'
+            }, {
+                id: 'midnight',
+                name: 'Cobalt',
+                color: '#5a9cf5'
+            }, {
+                id: 'forest',
+                name: 'Emerald',
+                color: '#50c878'
+            }, {
+                id: 'ocean',
+                name: 'Teal',
+                color: '#40c8c0'
+            }, {
+                id: 'berry',
+                name: 'Rose',
+                color: '#d870e8'
+            }, {
+                id: 'violet',
+                name: 'Violet',
+                color: '#a070f0'
+            }, {
+                id: 'royal',
+                name: 'Amber',
+                color: '#f0b830'
+            }, {
+                id: 'sunset',
+                name: 'Coral',
+                color: '#f07050'
+            }, {
+                id: 'coffee',
+                name: 'Warm',
+                color: '#e09050'
+            }, {
+                id: 'slate',
+                name: 'Slate',
+                color: '#88aacc'
+            }];
             function initThemes() {
                 document.documentElement.setAttribute('data-theme', state.theme);
                 document.documentElement.setAttribute('data-mode', state.colorMode);
@@ -3560,22 +3463,23 @@ function renderProfileView(p) {
                         btn.title = a.name;
                         btn.onclick = () => setAccent(a.id);
                         grid.appendChild(btn);
-                    });
+                    }
+                    );
                 }
                 const dBtn = document.getElementById('tpDarkBtn');
                 const lBtn = document.getElementById('tpLightBtn');
-                if (dBtn) dBtn.classList.toggle('active', state.colorMode === 'dark');
-                if (lBtn) lBtn.classList.toggle('active', state.colorMode === 'light');
+                if (dBtn)
+                    dBtn.classList.toggle('active', state.colorMode === 'dark');
+                if (lBtn)
+                    lBtn.classList.toggle('active', state.colorMode === 'light');
                 syncThemeColor();
             }
-
             function flashTheme() {
                 const el = document.createElement('div');
                 el.className = 'theme-flash';
                 document.body.appendChild(el);
                 el.addEventListener('animationend', () => el.remove());
             }
-
             function setAccent(id) {
                 state.theme = id;
                 localStorage.setItem('app_theme', id);
@@ -3583,7 +3487,6 @@ function renderProfileView(p) {
                 initThemes();
                 flashTheme();
             }
-
             function setColorMode(mode) {
                 state.colorMode = mode;
                 localStorage.setItem('app_color_mode', mode);
@@ -3591,15 +3494,109 @@ function renderProfileView(p) {
                 initThemes();
                 flashTheme();
             }
-
             function openThemeOverlay() {
                 initThemes();
                 openModal('themeOverlay');
             }
-
             function syncThemeColor() {
                 const meta = document.getElementById('themeColorMeta');
-                if (meta) meta.content = state.colorMode === 'light' ? '#f8f8f8' : '#0a0a0a';
+                if (meta)
+                    meta.content = state.colorMode === 'light' ? '#f8f8f8' : '#0a0a0a';
+            }
+
+            function trackPillAnimation() {
+                let start = performance.now();
+                function step(time) {
+                    const activeEl = document.querySelector('.subject.active');
+                    if (activeEl)
+                        movePill(activeEl, true);
+                    if (time - start < 350) {
+                        requestAnimationFrame(step);
+                    } else {
+                        if (activeEl)
+                            movePill(activeEl, false);
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+
+            function toggleDesktopSidebar() {
+                document.getElementById('sidebar')?.classList.toggle('collapsed');
+                trackPillAnimation();
+            }
+            function toggleMobileSidebar() {
+                document.getElementById('sidebar')?.classList.toggle('mobile-open');
+                document.getElementById('sidebarOverlay')?.classList.toggle('active');
+                trackPillAnimation();
+            }
+
+            function urlBase64ToUint8Array(base64String) {
+                const padding = '='.repeat((4 - base64String.length % 4) % 4);
+                const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+                const raw = atob(base64);
+                return Uint8Array.from([...raw].map(c => c.charCodeAt(0)));
+            }
+
+            async function subscribePush() {
+                try {
+                    const registration = await navigator.serviceWorker.ready;
+                    const subscription = await registration.pushManager.subscribe({
+                        userVisibleOnly: true,
+                        applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+                    });
+                    await apiFetch('/push-subscription', 'POST', {
+                        subscription,
+                        userEmail: state.user?.email || null
+                    });
+                } catch (err) {
+                    console.warn('[Push] Subscribe failed:', err.message);
+                }
+            }
+
+            async function unsubscribePush() {
+                try {
+                    const registration = await navigator.serviceWorker.ready;
+                    const subscription = await registration.pushManager.getSubscription();
+                    if (!subscription)
+                        return;
+                    await apiFetch('/push-subscription', 'DELETE', {
+                        endpoint: subscription.endpoint
+                    });
+                    await subscription.unsubscribe();
+                } catch (err) {
+                    console.warn('[Push] Unsubscribe failed:', err.message);
+                }
+            }
+
+            async function handleNotifBell() {
+                if (!('serviceWorker'in navigator) || !('PushManager'in window)) {
+                    return showToast('Push notifications not supported in this browser', 'error');
+                }
+                try {
+                    const permission = await Notification.requestPermission();
+                    if (permission !== 'granted') {
+                        return showToast('Notification permission denied', 'error');
+                    }
+                    const btn = document.getElementById('notifBellBtn');
+                    if (btn)
+                        btn.style.opacity = '0.5';
+                    await subscribePush();
+                    showToast('Successfully subscribed to notifications!');
+                    if (btn) {
+                        btn.style.opacity = '1';
+                        const icon = document.getElementById('notifBellIcon');
+                        if (icon) {
+                            icon.querySelector('use').setAttribute('href', '#ic-bell-ringing');
+                            icon.style.color = 'var(--accent)';
+                        }
+                    }
+                } catch (e) {
+                    console.error('Push Subscription Error:', e);
+                    showToast('Failed to subscribe to notifications', 'error');
+                    const btn = document.getElementById('notifBellBtn');
+                    if (btn)
+                        btn.style.opacity = '1';
+                }
             }
 
             async function renderHomeView() {
@@ -3608,19 +3605,11 @@ function renderProfileView(p) {
                     return;
                 const stats = buildHomeStats();
 
-                const userName = state.profile?.full_name || state.user?.user_metadata?.full_name || 'Student';
-                const greeting = (() => {
-                    const h = new Date().getHours();
-                    if (h < 12) return 'Good morning';
-                    if (h < 17) return 'Good afternoon';
-                    return 'Good evening';
-                })();
-
                 wv.innerHTML = `
                 <div class="workspace-header">
-                    <h1>${greeting}, ${userName.split(' ')[0]} 👋</h1>
+                    <h1>Home</h1>
                     <div class="subject-meta">
-                        <span>AI &amp; DS Batch 2025–2029 · Arka Jain University</span>
+                        <span>Overview &amp; recent updates</span>
                     </div>
                 </div>
                 <div class="stats-bar">
@@ -3645,14 +3634,7 @@ function renderProfileView(p) {
                         <div class="stat-label">Overdue</div>
                     </div>
                 </div>
-                <div class="content-grid" style="display:flex; flex-direction:column; gap:40px; max-width:900px;">
-                    <div>
-                        <div class="section-title">
-                            <span>Notices</span>
-                            <button class="btn btn-ghost text-xs" style="padding:4px 10px;" onclick="switchView('notices'); loadNotices();">View all →</button>
-                        </div>
-                        <div id="homeNotices"><div class="empty-state"><svg class="icon icon-spin"><use href="#ic-loader"/></svg></div></div>
-                    </div>
+                <div class="content-grid" style="display:flex; flex-direction:column; gap:48px; max-width:900px;">
                     <div>
                         <div class="section-title">Pending Assignments</div>
                         <div class="timeline" id="homeTimeline">
@@ -3666,40 +3648,11 @@ function renderProfileView(p) {
                         </div>
                     </div>
                 </div>
-                <div style="margin-top:56px; padding-top:28px; border-top:1px solid var(--border); color:var(--text-muted); font-size:0.78rem; text-align:center; line-height:1.6;">
-                    <p style="margin-bottom:6px;">Built by <strong style="color:var(--text-main);">NullYex</strong> · Not affiliated with Arka Jain University.</p>
+                <div style="margin-top:64px; padding-top:32px; border-top:1px solid var(--border); color:var(--text-muted); font-size:0.8rem; text-align:center; line-height:1.6;">
+                    <p style="margin-bottom:8px;">This product was created by <strong style="color:var(--text-main);">NullYex</strong> to help in studies. This website or NullYex has no relation whatsoever with the university.</p>
                     <p>&copy; ${new Date().getFullYear()} NullYex. All rights reserved.</p>
                 </div>
             `;
-
-                // Load notices for home
-                (async () => {
-                    const noticesEl = document.getElementById('homeNotices');
-                    if (!noticesEl) return;
-                    try {
-                        const data = await apiFetch('/notices?order=created_at.desc') || [];
-                        const latest = data.slice(0, 4);
-                        if (!latest.length) {
-                            noticesEl.innerHTML = '<div class="empty-state" style="padding:20px;"><p>No notices yet.</p></div>';
-                        } else {
-                            noticesEl.innerHTML = '';
-                            latest.forEach(n => {
-                                const d = document.createElement('div');
-                                d.className = 'notice-item';
-                                d.innerHTML = `
-                                    <div class="notice-item-head">
-                                        <div class="notice-item-title">${n.title}</div>
-                                        <span class="notice-item-date">${n.created_at ? formatDate(n.created_at) : ''}</span>
-                                    </div>
-                                    ${n.body ? `<div class="notice-item-body">${n.body}</div>` : ''}
-                                    ${n.file_url ? `<a href="${n.file_url}" target="_blank" rel="noopener" class="btn btn-ghost text-xs" style="margin-top:6px;width:fit-content;"><svg class="icon"><use href="#ic-link"/></svg> Open File</a>` : ''}`;
-                                noticesEl.appendChild(d);
-                            });
-                        }
-                    } catch(e) {
-                        noticesEl.innerHTML = '<div class="empty-state" style="padding:20px;"><p>Could not load notices.</p></div>';
-                    }
-                })();
 
                 const timelineEl = document.getElementById('homeTimeline');
                 const upcoming = state.assignments.filter(a => !isCompletedByUser(a.id)).sort( (a, b) => {
@@ -3803,9 +3756,7 @@ function renderProfileView(p) {
                     home: 'welcomeView',
                     subject: 'subjectView',
                     notices: 'noticesView',
-                    cover_page: 'coverPageView',
-                    attendex: 'attendexView',
-                    profile: 'profileView'
+                    cover_page: 'coverPageView'
                 };
 
                 const currentEl = document.getElementById(viewMap[state.currentView]);
@@ -3946,7 +3897,6 @@ function renderProfileView(p) {
                 
                 if (!query) {
                     list.appendChild(createItem('home', '<svg class="icon"><use href="#ic-home"/></svg>', 'Home', true, () => switchView('home')));
-                    list.appendChild(createItem('attendex', '<svg class="icon" style="flex-shrink:0"><use href="#ic-user"/></svg>', 'AttendEX', true, () => switchView('attendex')));
                     list.appendChild(createItem('cover_page', 'CP', 'Cover Page', true, () => switchView('cover_page')));
                     list.appendChild(createItem('notices', 'GN', 'General Notices', true, () => {
                         switchView('notices');
@@ -5422,369 +5372,6 @@ function renderProfileView(p) {
             })();
 
             document.addEventListener('DOMContentLoaded', init);
-</script>
-<script>
-/* ══════════════════════════════════════════════════════
-   ATTENDEX ENGINE
-══════════════════════════════════════════════════════ */
-let axHumans = [];
-let axAttendance = {};
-let axTimetable = {};
-let axSelectedSlot = null;
-let axIsManual = false;
-let axAutoInterval = null;
-let axRawOpen = false;
-
-const AX_SUBJECTS = SUBJECTS;
-
-async function initAttendEX() {
-    try {
-        const r = await fetch('./subjects-why-not.json');
-        if (r.ok) {
-            axTimetable = await r.json();
-            axBuildDayTabs();
-            axStartAutoScheduler();
-        }
-    } catch(e) {}
-    try {
-        const r2 = await fetch('./humans-xD.json');
-        if (r2.ok) {
-            const raw = await r2.json();
-            if (Array.isArray(raw)) {
-                axHumans = raw;
-                axAttendance = {};
-                axHumans.forEach((_,i) => axAttendance[i] = null);
-            }
-        }
-    } catch(e) {}
-    axRenderHumans();
-    axUpdateStats();
-}
-
-function axBuildDayTabs() {
-    const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    const c = document.getElementById('axDayTabs');
-    if (!c) return;
-    c.innerHTML = '';
-    days.forEach(d => {
-        const b = document.createElement('div');
-        b.className = 'ax-day-tab';
-        b.textContent = d.substring(0,3);
-        b.id = `axTab-${d}`;
-        b.onclick = () => axRenderTimeline(d, true);
-        c.appendChild(b);
-    });
-    const today = ['','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][new Date().getDay()] || 'Monday';
-    axRenderTimeline(today);
-}
-
-function axRenderTimeline(day, isUser=false) {
-    if (isUser) { axIsManual = true; document.getElementById('axAutoBtn').style.display = 'block'; }
-    document.querySelectorAll('.ax-day-tab').forEach(t => t.classList.remove('active'));
-    const activeTab = document.getElementById(`axTab-${day}`);
-    if (activeTab) activeTab.classList.add('active');
-    const c = document.getElementById('axTimeline');
-    if (!c) return;
-    c.innerHTML = '';
-    const slots = axTimetable[day];
-    if (!slots || !slots.length) {
-        c.innerHTML = `<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:.82rem;">No classes scheduled for ${day}</div>`;
-        return;
-    }
-    slots.forEach((slot, i) => {
-        const el = document.createElement('div');
-        el.className = 'ax-slot';
-        el.id = `axSlot-${day}-${i}`;
-        el.onclick = () => axSelectSlot(slot, el.id, day, i);
-        el.innerHTML = `
-            <div class="ax-slot-time"><span class="ax-slot-start">${slot.startTime}</span><span class="ax-slot-end">${slot.endTime}</span></div>
-            <div class="ax-slot-info">
-                <div class="ax-slot-name">${slot.subject}</div>
-                <div class="ax-slot-faculty">${slot.faculty}</div>
-                <div class="ax-slot-type ${slot.type}">${slot.type} · ${slot.batch}</div>
-            </div>`;
-        c.appendChild(el);
-    });
-    if (!axIsManual) axHighlightCurrent();
-}
-
-function axHighlightCurrent() {
-    if (axIsManual) return;
-    const now = new Date();
-    const dayIdx = now.getDay();
-    const dayMap = ['','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    const today = dayMap[dayIdx];
-    if (!today || !axTimetable[today]) return;
-    const cur = now.getHours() * 60 + now.getMinutes();
-    const toMin = t => { const [h,m] = t.split(':').map(Number); return h*60+m; };
-    document.querySelectorAll('.ax-slot').forEach(el => el.classList.remove('active-now'));
-    let firstActive = null;
-    axTimetable[today].forEach((s, i) => {
-        const el = document.getElementById(`axSlot-${today}-${i}`);
-        if (!el) return;
-        if (cur >= toMin(s.startTime) - 10 && cur < toMin(s.endTime)) {
-            el.classList.add('active-now');
-            if (!firstActive) { firstActive = { slot:s, el, day:today, idx:i }; }
-        }
-    });
-    if (firstActive && !axSelectedSlot) {
-        axSelectSlot(firstActive.slot, firstActive.el.id, firstActive.day, firstActive.idx, true);
-    }
-}
-
-function axStartAutoScheduler() {
-    axHighlightCurrent();
-    if (axAutoInterval) clearInterval(axAutoInterval);
-    axAutoInterval = setInterval(axHighlightCurrent, 30000);
-}
-
-function axSelectSlot(slot, elId, day, idx, isAuto=false) {
-    document.querySelectorAll('.ax-slot').forEach(e => e.classList.remove('selected'));
-    const el = document.getElementById(elId);
-    if (el) el.classList.add('selected');
-    let title = slot.subject;
-    if (slot.batch && slot.batch !== 'All') title += ` (${slot.batch})`;
-    axSelectedSlot = { name: title, batch: slot.batch || 'All' };
-    const sub = document.getElementById('axSelectedSubject');
-    if (sub) sub.textContent = `Subject: ${title}`;
-    axRenderHumans();
-    axUpdateStats();
-}
-
-function axResetToAuto() {
-    axIsManual = false;
-    axSelectedSlot = null;
-    document.getElementById('axAutoBtn').style.display = 'none';
-    document.querySelectorAll('.ax-slot').forEach(e => e.classList.remove('selected'));
-    const sub = document.getElementById('axSelectedSubject');
-    if (sub) sub.textContent = 'No subject selected';
-    axHighlightCurrent();
-    axRenderHumans();
-    axUpdateStats();
-}
-
-function axInBatch(idx) {
-    if (!axSelectedSlot?.batch || axSelectedSlot.batch === 'All') return true;
-    if (axSelectedSlot.batch === 'C1') return idx < 32;
-    if (axSelectedSlot.batch === 'C2') return idx >= 32;
-    return true;
-}
-
-function axRenderHumans(filter='') {
-    const c = document.getElementById('axHumanList');
-    if (!c) return;
-    c.innerHTML = '';
-    const frag = document.createDocumentFragment();
-    const isRollSearch = /^\d{1,2}$/.test(filter.trim());
-    axHumans.forEach((h, i) => {
-        if (!axInBatch(i)) return;
-        if (filter) {
-            const n = h.name.toLowerCase(), r = String(h.rollNo).toLowerCase(), e = String(h.enrollmentNo).toLowerCase();
-            if (isRollSearch) { if (!r.includes(filter)) return; }
-            else { if (!n.includes(filter) && !r.includes(filter) && !e.includes(filter)) return; }
-        }
-        const el = document.createElement('div');
-        el.className = 'ax-human';
-        const st = axAttendance[i];
-        if (st === true) el.classList.add('ax-present');
-        else if (st === false) el.classList.add('ax-absent');
-        el.onclick = () => axCycleStatus(i);
-        el.innerHTML = `
-            <div class="ax-human-info">
-                <strong>${h.name}</strong>
-                <div class="ax-human-sub">Roll: <span class="ax-roll">${h.rollNo}</span> | ${h.enrollmentNo}</div>
-            </div>
-            <div class="ax-badge">${st===true?'PRESENT':st===false?'ABSENT':'---'}</div>`;
-        frag.appendChild(el);
-    });
-    c.appendChild(frag);
-}
-
-function axCycleStatus(i) {
-    if (axAttendance[i] === null) axAttendance[i] = true;
-    else if (axAttendance[i] === true) axAttendance[i] = false;
-    else axAttendance[i] = null;
-    const search = document.getElementById('axSearch')?.value.toLowerCase() || '';
-    axRenderHumans(search);
-    axUpdateStats();
-    if (axRawOpen) axUpdateRaw();
-}
-
-function axUpdateStats() {
-    let t=0, p=0, a=0;
-    axHumans.forEach((_,i) => {
-        if (!axInBatch(i)) return;
-        t++;
-        if (axAttendance[i]===true) p++;
-        if (axAttendance[i]===false) a++;
-    });
-    const set = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
-    set('axTotal',t); set('axPresent',p); set('axAbsent',a);
-}
-
-function axMarkAll(present) {
-    axHumans.forEach((_,i) => { if (axInBatch(i)) axAttendance[i] = present; });
-    axRenderHumans(); axUpdateStats();
-}
-
-function axResetAll() {
-    if (!confirm('Reset all attendance?')) return;
-    axHumans.forEach((_,i) => { axAttendance[i] = null; });
-    axRenderHumans(); axUpdateStats();
-}
-
-function axToggleOpt(id) {
-    const el = document.getElementById(id);
-    el.classList.toggle('active');
-    const iconId = id + 'Icon';
-    const iconEl = document.getElementById(iconId);
-    if (iconEl) iconEl.textContent = el.classList.contains('active') ? '●' : '○';
-    if (axRawOpen) axUpdateRaw();
-}
-
-function axGetData() {
-    const onlyPresent = document.getElementById('axTPres').classList.contains('active');
-    const useName = document.getElementById('axTName').classList.contains('active');
-    const useRoll = document.getElementById('axTRoll').classList.contains('active');
-    const rows = [];
-    axHumans.forEach((h,i) => {
-        if (!axInBatch(i)) return;
-        if (onlyPresent && axAttendance[i] !== true) return;
-        const row = {};
-        row['Enrollment'] = h.enrollmentNo;
-        if (useRoll) row['Roll No'] = String(h.rollNo).padStart(2,'0');
-        if (!onlyPresent) row['Status'] = axAttendance[i]===true?'Present':axAttendance[i]===false?'Absent':'Unmarked';
-        if (useName) row['Name'] = h.name;
-        rows.push(row);
-    });
-    return rows;
-}
-
-function axGenRaw() {
-    const onlyPresent = document.getElementById('axTPres').classList.contains('active');
-    const data = axGetData();
-    const subj = axSelectedSlot?.name || 'No Subject Selected';
-    let txt = `ATTENDANCE RPT - SUBJECT: ${subj}\nDATE: ${new Date().toLocaleString()}\n`;
-    txt += onlyPresent ? 'ONLY PRESENT STUDENT LIST:\n' : 'FULL STUDENT LIST:\n';
-    txt += '----------------------------\n';
-    data.forEach(r => { txt += Object.values(r).join(' | ') + '\n'; });
-    return txt;
-}
-
-function axUpdateRaw() {
-    const area = document.getElementById('axRawOutput');
-    if (!area) return;
-    area.value = axGenRaw();
-}
-
-function axViewRaw() {
-    if (!axSelectedSlot) return showToast('Select a subject first', 'error');
-    const area = document.getElementById('axRawOutput');
-    if (!area) return;
-    axRawOpen = !axRawOpen;
-    area.style.display = axRawOpen ? 'block' : 'none';
-    if (axRawOpen) axUpdateRaw();
-}
-
-function axExportXLSX() {
-    if (!axSelectedSlot) return showToast('Select a subject first', 'error');
-    if (typeof XLSX === 'undefined') return showToast('XLSX library not loaded', 'error');
-    const data = axGetData();
-    if (!data.length) return showToast('No data to export', 'error');
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Attendance');
-    XLSX.writeFile(wb, `Attendance_${new Date().toISOString().slice(0,10)}.xlsx`);
-}
-
-function axExportTxt() {
-    if (!axSelectedSlot) return showToast('Select a subject first', 'error');
-    const txt = axGenRaw();
-    const blob = new Blob([txt], {type:'text/plain'});
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `Attendance_${new Date().toISOString().slice(0,10)}.txt`;
-    a.click();
-}
-
-async function axShareWA() {
-    if (!axSelectedSlot) return showToast('Select a subject first', 'error');
-    const subj = axSelectedSlot.name || 'Unknown';
-    const data = axGetData();
-    const onlyPresent = document.getElementById('axTPres').classList.contains('active');
-    let txt = `*Attendance Report*\n\n• *Branch:* B.Tech AI&DS (IBM) - II\n• *Subject:* ${subj}\n• *Date:* ${new Date().toLocaleString()}\n\n`;
-    txt += onlyPresent ? '*_PRESENT STUDENTS:_*\n' : '*_FULL LIST:_*\n';
-    txt += '```\nEnroll No. |Roll| Name\n-----------|----|--------------------\n';
-    data.forEach(r => { txt += Object.values(r).join(' | ') + '\n'; });
-    txt += '```\n```\nBy NullYex: http://nullyex.com/AttendEX/\n```';
-    try { await navigator.clipboard.writeText(txt); showToast('Copied to clipboard!'); } catch(e) {}
-    window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`, '_blank');
-}
-
-/* ══════════════════════════════════════════════════════
-   OVERRIDE init to add: auth guard + profile + attendex
-══════════════════════════════════════════════════════ */
-async function init() {
-    if (!supabaseClient) {
-        window.location.href = './index.html';
-        return;
-    }
-
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    if (!session?.user) {
-        window.location.href = './index.html';
-        return;
-    }
-
-    state.user = session.user;
-
-    try {
-        const res = await fetch(`${API_BASE_URL}/auth/check`, {
-            headers: {
-                'Authorization': `Bearer ${session.access_token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        if (res.ok) { const j = await res.json(); state.isAdmin = j.isAdmin === true; }
-    } catch(e) { state.isAdmin = false; }
-
-    await loadUserProfile(session.user.id);
-
-    supabaseClient.auth.onAuthStateChange((event, s) => {
-        if (event === 'SIGNED_OUT') window.location.href = './index.html';
-        state.user = s?.user || null;
-    });
-
-    initThemes();
-    populateSubjectDropdown();
-
-    if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js').catch(()=>{});
-
-    const list = document.getElementById('subjectList');
-    if (list && window.ResizeObserver) {
-        new ResizeObserver(() => {
-            const activeEl = document.querySelector('.subject.active');
-            if (activeEl) movePill(activeEl, true);
-        }).observe(list);
-    }
-
-    renderSidebarList();
-    renderAdminControls();
-    switchView('home');
-
-    try {
-        state.assignments = await apiFetch('/assignments?select=*') || [];
-        renderSidebarList();
-        if (state.currentView === 'home') renderHomeView();
-    } catch(e) {}
-
-    await initAttendEX();
-}
-
-document.addEventListener('DOMContentLoaded', init);
-window.addEventListener('online', () => { document.getElementById('offlineBanner').style.display = 'none'; });
-window.addEventListener('offline', () => { document.getElementById('offlineBanner').style.display = 'flex'; });
-if (!navigator.onLine) document.getElementById('offlineBanner').style.display = 'flex';
-</script>
-</body>
+        </script>
+    </body>
 </html>
