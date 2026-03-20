@@ -1,1 +1,322 @@
-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
+[
+  {
+    "name": "Sangam Kumar",
+    "rollNo": "1",
+    "enrollmentNo": "AJU/250052"
+  },
+  {
+    "name": "Kumari Shashi Verma",
+    "rollNo": "2",
+    "enrollmentNo": "AJU/250055"
+  },
+  {
+    "name": "Arpit Swarnkar",
+    "rollNo": "3",
+    "enrollmentNo": "AJU/250197"
+  },
+  {
+    "name": "Surjo Banerjee",
+    "rollNo": "4",
+    "enrollmentNo": "AJU/250201"
+  },
+  {
+    "name": "Mohit Verma",
+    "rollNo": "5",
+    "enrollmentNo": "AJU/250289"
+  },
+  {
+    "name": "Rohan Thakur",
+    "rollNo": "6",
+    "enrollmentNo": "AJU/250325"
+  },
+  {
+    "name": "Kumari Raj Nandani",
+    "rollNo": "7",
+    "enrollmentNo": "AJU/250402"
+  },
+  {
+    "name": "Tanmaya Behera",
+    "rollNo": "8",
+    "enrollmentNo": "AJU/250416"
+  },
+  {
+    "name": "Nishant Tiwary",
+    "rollNo": "9",
+    "enrollmentNo": "AJU/250419"
+  },
+  {
+    "name": "Jaisleen Kaur",
+    "rollNo": "10",
+    "enrollmentNo": "AJU/250475"
+  },
+  {
+    "name": "Khushwant Mardi",
+    "rollNo": "11",
+    "enrollmentNo": "AJU/250478"
+  },
+  {
+    "name": "Rishu Singh",
+    "rollNo": "12",
+    "enrollmentNo": "AJU/250505"
+  },
+  {
+    "name": "Soni Singh",
+    "rollNo": "13",
+    "enrollmentNo": "AJU/250506"
+  },
+  {
+    "name": "Pallavi Kumari",
+    "rollNo": "14",
+    "enrollmentNo": "AJU/250564"
+  },
+  {
+    "name": "Harshdeep Singh",
+    "rollNo": "15",
+    "enrollmentNo": "AJU/250572"
+  },
+  {
+    "name": "Rupesh Anand",
+    "rollNo": "16",
+    "enrollmentNo": "AJU/250579"
+  },
+  {
+    "name": "Azlan Ali",
+    "rollNo": "17",
+    "enrollmentNo": "AJU/250582"
+  },
+  {
+    "name": "Suraj Mallik",
+    "rollNo": "18",
+    "enrollmentNo": "AJU/250620"
+  },
+  {
+    "name": "Sarvottam Priye",
+    "rollNo": "19",
+    "enrollmentNo": "AJU/250685"
+  },
+  {
+    "name": "Chetan Singh",
+    "rollNo": "20",
+    "enrollmentNo": "AJU/250775"
+  },
+  {
+    "name": "Mohammad Kamran Alvi",
+    "rollNo": "21",
+    "enrollmentNo": "AJU/250779"
+  },
+  {
+    "name": "Mohammad Rehan",
+    "rollNo": "22",
+    "enrollmentNo": "AJU/250848"
+  },
+  {
+    "name": "Rishika Kumari",
+    "rollNo": "23",
+    "enrollmentNo": "AJU/250878"
+  },
+  {
+    "name": "Gourav Kumar Mahato",
+    "rollNo": "24",
+    "enrollmentNo": "AJU/250885"
+  },
+  {
+    "name": "Raju Gorai",
+    "rollNo": "25",
+    "enrollmentNo": "AJU/250993"
+  },
+  {
+    "name": "Ishika Kumari",
+    "rollNo": "26",
+    "enrollmentNo": "AJU/251021"
+  },
+  {
+    "name": "Naina Kumari",
+    "rollNo": "27",
+    "enrollmentNo": "AJU/251025"
+  },
+  {
+    "name": "Ritika Kumari",
+    "rollNo": "28",
+    "enrollmentNo": "AJU/251088"
+  },
+  {
+    "name": "Farhan Khalid",
+    "rollNo": "29",
+    "enrollmentNo": "AJU/251152"
+  },
+  {
+    "name": "Amrit Ranjan",
+    "rollNo": "30",
+    "enrollmentNo": "AJU/251221"
+  },
+  {
+    "name": "Soumya Mishra",
+    "rollNo": "31",
+    "enrollmentNo": "AJU/251316"
+  },
+  {
+    "name": "Shivam Purty",
+    "rollNo": "32",
+    "enrollmentNo": "AJU/251335"
+  },
+  {
+    "name": "Arshal Nasim",
+    "rollNo": "33",
+    "enrollmentNo": "AJU/251377"
+  },
+  {
+    "name": "Hemant Kumar",
+    "rollNo": "34",
+    "enrollmentNo": "AJU/251442"
+  },
+  {
+    "name": "Simiya Khatoon",
+    "rollNo": "35",
+    "enrollmentNo": "AJU/251452"
+  },
+  {
+    "name": "Umair Raza",
+    "rollNo": "36",
+    "enrollmentNo": "AJU/251455"
+  },
+  {
+    "name": "Anish Kumar Mahato",
+    "rollNo": "37",
+    "enrollmentNo": "AJU/251472"
+  },
+  {
+    "name": "Kritika Raj",
+    "rollNo": "38",
+    "enrollmentNo": "AJU/251580"
+  },
+  {
+    "name": "Rahul Kumar Mandal",
+    "rollNo": "39",
+    "enrollmentNo": "AJU/251641"
+  },
+  {
+    "name": "Keshav Chourasia",
+    "rollNo": "40",
+    "enrollmentNo": "AJU/251694"
+  },
+  {
+    "name": "Priyanshu Sen",
+    "rollNo": "41",
+    "enrollmentNo": "AJU/251734"
+  },
+  {
+    "name": "Ayush Kumar",
+    "rollNo": "42",
+    "enrollmentNo": "AJU/251740"
+  },
+  {
+    "name": "Mohani Prasad",
+    "rollNo": "43",
+    "enrollmentNo": "AJU/251755"
+  },
+  {
+    "name": "Rahul Kumar Singh",
+    "rollNo": "44",
+    "enrollmentNo": "AJU/251798"
+  },
+  {
+    "name": "Paras",
+    "rollNo": "45",
+    "enrollmentNo": "AJU/251858"
+  },
+  {
+    "name": "Ayushman Mandal",
+    "rollNo": "46",
+    "enrollmentNo": "AJU/251907"
+  },
+  {
+    "name": "Mohammad Aaban Ahmad",
+    "rollNo": "47",
+    "enrollmentNo": "AJU/251969"
+  },
+  {
+    "name": "Harsh Nayan",
+    "rollNo": "48",
+    "enrollmentNo": "AJU/251999"
+  },
+  {
+    "name": "Ayush Kumar Singh",
+    "rollNo": "49",
+    "enrollmentNo": "AJU/252009"
+  },
+  {
+    "name": "Janvi Sinha",
+    "rollNo": "50",
+    "enrollmentNo": "AJU/252075"
+  },
+  {
+    "name": "Ashutosh Kumar Sharma",
+    "rollNo": "51",
+    "enrollmentNo": "AJU/252078"
+  },
+  {
+    "name": "Humaira Kayenat",
+    "rollNo": "52",
+    "enrollmentNo": "AJU/252105"
+  },
+  {
+    "name": "NULL (STUDENT LEFT)",
+    "rollNo": "53",
+    "enrollmentNo": "AJU/25XXXX"
+  },
+  {
+    "name": "Priya Kumari",
+    "rollNo": "54",
+    "enrollmentNo": "AJU/252399"
+  },
+  {
+    "name": "Vedant Pandey",
+    "rollNo": "55",
+    "enrollmentNo": "AJU/252470"
+  },
+  {
+    "name": "Sandesh Kumar",
+    "rollNo": "56",
+    "enrollmentNo": "AJU/252535"
+  },
+  {
+    "name": "G Om Keswari",
+    "rollNo": "57",
+    "enrollmentNo": "AJU/250193"
+  },
+  {
+    "name": "Mohit Raj",
+    "rollNo": "58",
+    "enrollmentNo": "AJU/250609"
+  },
+  {
+    "name": "Shreya Sharma",
+    "rollNo": "59",
+    "enrollmentNo": "AJU/252692"
+  },
+  {
+    "name": "Aarav Vaibhav",
+    "rollNo": "60",
+    "enrollmentNo": "AJU/252742"
+  },
+  {
+    "name": "Raushan Kumar",
+    "rollNo": "61",
+    "enrollmentNo": "AJU/252774"
+  },
+  {
+    "name": "Rohit Kumar",
+    "rollNo": "62",
+    "enrollmentNo": "AJU/252782"
+  },
+  {
+    "name": "Shristi Kumari",
+    "rollNo": "63",
+    "enrollmentNo": "AJU/252812"
+  },
+  {
+    "name": "Md Naseeb Khan",
+    "rollNo": "64",
+    "enrollmentNo": "AJU/252821"
+  }
+]
