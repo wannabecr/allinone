@@ -38,6 +38,19 @@
 [data-theme="slate"]{--accent:#88aacc;--accentH:#6888b0;--accentA:rgba(136,170,204,0.15);}
 [data-mode="light"]{--bg:#f8f8f8;--panel:#ffffff;--panel2:#f0f0f0;--bgm:#ffffff;--text:#0a0a0a;--muted:#666666;--border:rgba(0,0,0,0.1);--borderf:rgba(0,0,0,0.2);--shadow-modal:0 24px 80px rgba(0,0,0,0.12),0 0 0 1px rgba(0,0,0,0.08);}
 [data-mode="light"][data-theme="default"]{--accent:#0a0a0a;--accentH:#333333;--accentA:rgba(0,0,0,0.07);}
+/* ── CSS variable aliases (for compatibility with injected TaskBoard JS) ── */
+[data-mode="dark"], [data-mode="light"] {
+    --text-main: var(--text);
+    --text-muted: var(--muted);
+    --panel-bg: var(--panel);
+    --panel-bg-alt: var(--panel2);
+    --bg-dark: var(--bg);
+    --bg-modal: var(--bgm);
+    --accent-alpha: var(--accentA);
+    --accent-hover: var(--accentH);
+    --border-focus: var(--borderf);
+}
+
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.5;height:100dvh;overflow:hidden;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;touch-action:manipulation;overscroll-behavior:none;}
 button{cursor:pointer;font-family:inherit;background:none;border:none;color:inherit;}
@@ -156,7 +169,7 @@ input,select,textarea{font-family:inherit;}
 }
 .sidebar-header{padding:16px 16px 10px;flex-shrink:0;}
 .sidebar-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-.sidebar-section-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:10px 12px 5px;font-weight:600;white-space:nowrap;flex-shrink:0;}
+.sidebar-section-label{font-size:0.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:10px 12px 5px;font-weight:600;white-space:nowrap;flex-shrink:0;padding:0;}
 .subject-search-wrap{padding:0 12px 8px;flex-shrink:0;}
 .subject-search{width:100%;padding:7px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:0.8rem;font-family:var(--font);outline:none;transition:border-color .2s;}
 .subject-search:focus{border-color:var(--accent);}
@@ -205,15 +218,15 @@ input,select,textarea{font-family:inherit;}
     -webkit-overflow-scrolling:touch;
 }
 #attendexScreen.open{transform:translateX(0);}
-.ax-content{padding:36px 48px;max-width:920px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:20px;}
+.ax-content{padding:32px 40px;max-width:860px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:16px;}
 .ax-card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:22px;}
 .ax-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap;}
 .ax-card-title{font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;}
-.ax-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.ax-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:0;}
 .ax-stat{background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center;}
 .ax-stat-val{font-size:1.5rem;font-weight:700;font-family:var(--mono);line-height:1;}
 .ax-stat-lbl{font-size:.66rem;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.04em;font-weight:600;}
-.ax-list{display:flex;flex-direction:column;gap:6px;max-height:400px;overflow-y:auto;padding-right:3px;}
+.ax-list{display:flex;flex-direction:column;gap:6px;max-height:460px;overflow-y:auto;padding-right:4px;-webkit-overflow-scrolling:touch;}
 .ax-human{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s;user-select:none;min-height:44px;}
 .ax-human:hover{background:var(--panel2);transform:translateX(3px);border-color:var(--borderf);}
 .ax-human.ax-p{border-color:#4a9a5a;background:rgba(74,154,90,.08);}
@@ -1509,7 +1522,7 @@ input,select,textarea{font-family:inherit;}
             <div class="modal modal-wide">
                 <div class="modal-header">
                     <h2>
-                        Admin Inbox <span id="inboxCount" style="font-size:0.8rem;color:var(--text-muted);font-weight:normal;margin-left:8px;"></span>
+                        Admin Inbox <span id="inboxCount" style="font-size:0.8rem;color:var(--muted);font-weight:normal;margin-left:8px;"></span>
                     </h2>
                     <button type="button" class="btn btn-ghost btn-icon" onclick="closeModal('inboxModal')">
                         <svg class="icon">
@@ -1517,7 +1530,7 @@ input,select,textarea{font-family:inherit;}
                         </svg>
                     </button>
                 </div>
-                <div style="padding:12px 20px; border-bottom:1px solid var(--border); display:flex; gap:8px; background:var(--bg-dark);">
+                <div style="padding:12px 20px; border-bottom:1px solid var(--border); display:flex; gap:8px; background:var(--bg);">
                     <button type="button" class="btn text-xs btn-primary" data-filter="all" onclick="setInboxFilter('all')">All</button>
                     <button type="button" class="btn text-xs btn-secondary" data-filter="open" onclick="setInboxFilter('open')">Open</button>
                     <button type="button" class="btn text-xs btn-secondary" data-filter="resolved" onclick="setInboxFilter('resolved')">Resolved</button>
@@ -2024,8 +2037,8 @@ function syncThemeColor() { const m = document.getElementById('themeColorMeta');
                         </div>
                     </div>
                 </div>
-                <div style="margin-top:64px; padding-top:32px; border-top:1px solid var(--border); color:var(--text-muted); font-size:0.8rem; text-align:center; line-height:1.6;">
-                    <p style="margin-bottom:8px;">This product was created by <strong style="color:var(--text-main);">NullYex</strong> to help in studies. This website or NullYex has no relation whatsoever with the university.</p>
+                <div style="margin-top:64px; padding-top:32px; border-top:1px solid var(--border); color:var(--muted); font-size:0.8rem; text-align:center; line-height:1.6;">
+                    <p style="margin-bottom:8px;">This product was created by <strong style="color:var(--text);">NullYex</strong> to help in studies. This website or NullYex has no relation whatsoever with the university.</p>
                     <p>&copy; ${new Date().getFullYear()} NullYex. All rights reserved.</p>
                 </div>
             `;
@@ -2040,7 +2053,7 @@ function syncThemeColor() { const m = document.getElementById('themeColorMeta');
 
                 if (upcoming.length === 0) {
                     timelineEl.innerHTML = `
-                    <div style="padding: 32px 24px; text-align: center; color: var(--text-muted); background: var(--panel-bg); border: 1px dashed var(--border-focus); border-radius: 12px;">
+                    <div style="padding: 32px 24px; text-align: center; color: var(--text-muted); background: var(--panel); border: 1px dashed var(--borderf); border-radius: 12px;">
                         <p style="font-size: 0.9rem;">No pending assignments.</p>
                     </div>`;
                 } else {
@@ -2113,7 +2126,7 @@ function syncThemeColor() { const m = document.getElementById('themeColorMeta');
                             <div class="resource-header">
                                 <div class="resource-icon" style="width:28px;height:28px;font-size:1rem;"><svg class="icon"><use href="#${icons[item._type] || 'ic-file-text'}"/></svg></div>
                                 <div>
-                                    <div style="font-size:0.65rem; color:var(--text-muted); font-family:var(--font-mono);">${subName}</div>
+                                    <div style="font-size:0.65rem; color:var(--muted); font-family:var(--font-mono);">${subName}</div>
                                     <div class="resource-title" style="font-size:0.85rem;">${item._title}</div>
                                 </div>
                             </div>`;
@@ -2272,12 +2285,7 @@ function syncThemeColor() { const m = document.getElementById('themeColorMeta');
 
                 
                 if (!query) {
-                    list.appendChild(createItem('home', '<svg class="icon"><use href="#ic-home"/></svg>', 'Home', true, () => switchView('home')));
                     list.appendChild(createItem('cover_page', 'CP', 'Cover Page', true, () => switchView('cover_page')));
-                    list.appendChild(createItem('notices', 'GN', 'General Notices', true, () => {
-                        switchView('notices');
-                        loadNotices();
-                    }));
                 }
 
                 const lbl1 = document.createElement('div');
@@ -2298,7 +2306,7 @@ function syncThemeColor() { const m = document.getElementById('themeColorMeta');
 
                 if (regularSubs.length === 0 && query) {
                     const noRes = document.createElement('div');
-                    noRes.style.cssText = 'padding:12px; font-size:0.78rem; color:var(--text-muted); text-align:center;';
+                    noRes.style.cssText = 'padding:12px; font-size:0.78rem; color:var(--muted); text-align:center;';
                     noRes.textContent = 'No subjects found';
                     list.appendChild(noRes);
                 }
@@ -2386,7 +2394,7 @@ function syncThemeColor() { const m = document.getElementById('themeColorMeta');
                     card.innerHTML = `
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px;">
                         <div class="resource-title" style="margin:0;">${n.title}</div>
-                        <span style="font-size:0.7rem;color:var(--text-muted);font-family:var(--font-mono);white-space:nowrap;flex-shrink:0;">${date}</span>
+                        <span style="font-size:0.7rem;color:var(--muted);font-family:var(--font-mono);white-space:nowrap;flex-shrink:0;">${date}</span>
                     </div>
                     ${n.body ? `<div class="resource-body" style="margin-left:0; margin-bottom:12px;">${n.body}</div>` : ''}
                     ${n.file_url ? `<a href="${n.file_url}" target="_blank" rel="noopener" class="btn btn-secondary text-xs" style="width:fit-content;"><svg class="icon"><use href="#ic-link"/></svg> Open File</a>` : ''}
@@ -2643,12 +2651,12 @@ function syncThemeColor() { const m = document.getElementById('themeColorMeta');
                             ${!isOpen ? '<span class="ticket-badge" style="background:rgba(34,197,94,0.1);color:var(--success);">RESOLVED</span>' : ''}
                         </div>
                     </div>
-                    <div style="font-size:0.75rem;color:var(--text-muted);display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
+                    <div style="font-size:0.75rem;color:var(--muted);display:flex;gap:12px;margin-bottom:8px;flex-wrap:wrap;">
                         ${t.subject_name ? `<span><svg class="icon"><use href="#ic-books"/></svg> ${t.subject_name}</span>` : ''}
                         <span><svg class="icon"><use href="#ic-user"/></svg> ${t.submitter_name || t.submitter_email || 'Anonymous'}</span>
                         <span><svg class="icon"><use href="#ic-clock"/></svg> ${formatDate(t.created_at)}</span>
                     </div>
-                    ${t.body ? `<div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:12px;">${t.body}</div>` : ''}
+                    ${t.body ? `<div style="font-size:0.85rem;color:var(--muted);margin-bottom:12px;">${t.body}</div>` : ''}
                     <div style="display:flex;gap:8px;border-top:1px solid var(--border);padding-top:12px;">
                         ${isOpen ? `<button type="button" class="btn btn-primary text-xs" onclick="resolveTicket('${t.id}')"><svg class="icon"><use href="#ic-check"/></svg> Mark Resolved</button>` : `<button type="button" class="btn btn-secondary text-xs" onclick="reopenTicket('${t.id}')"><svg class="icon"><use href="#ic-arrow-back"/></svg> Reopen</button>`}
                         <button type="button" class="btn btn-danger text-xs" onclick="deleteTicket('${t.id}')"><svg class="icon"><use href="#ic-trash"/></svg> Delete</button>
@@ -2717,6 +2725,10 @@ function syncThemeColor() { const m = document.getElementById('themeColorMeta');
 
             async function loadSubject(id) {
                 state.currentSubjectId = id;
+                // Ensure taskboard screen is open
+                if (currentSection !== 'taskboard') {
+                    openSection('taskboard');
+                }
                 switchView('subject');
 
                 const sub = SUBJECTS.find(s => s.id === id);
