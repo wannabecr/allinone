@@ -3533,6 +3533,75 @@ function renderProfileView(p) {
 
 </script>
 <script>
+
+            const ACCENTS = [
+                { id: 'default', name: 'Mono', color: '#f3f3f6' },
+                { id: 'midnight', name: 'Cobalt', color: '#5a9cf5' },
+                { id: 'forest', name: 'Emerald', color: '#50c878' },
+                { id: 'ocean', name: 'Teal', color: '#40c8c0' },
+                { id: 'berry', name: 'Rose', color: '#d870e8' },
+                { id: 'violet', name: 'Violet', color: '#a070f0' },
+                { id: 'royal', name: 'Amber', color: '#f0b830' },
+                { id: 'sunset', name: 'Coral', color: '#f07050' },
+                { id: 'coffee', name: 'Warm', color: '#e09050' },
+                { id: 'slate', name: 'Slate', color: '#88aacc' }
+            ];
+
+            function initThemes() {
+                document.documentElement.setAttribute('data-theme', state.theme);
+                document.documentElement.setAttribute('data-mode', state.colorMode);
+                const grid = document.getElementById('tpSwatches');
+                if (grid) {
+                    grid.innerHTML = '';
+                    ACCENTS.forEach(a => {
+                        const btn = document.createElement('div');
+                        btn.className = `tp-swatch ${a.id === state.theme ? 'active' : ''}`;
+                        btn.style.background = a.color;
+                        btn.title = a.name;
+                        btn.onclick = () => setAccent(a.id);
+                        grid.appendChild(btn);
+                    });
+                }
+                const dBtn = document.getElementById('tpDarkBtn');
+                const lBtn = document.getElementById('tpLightBtn');
+                if (dBtn) dBtn.classList.toggle('active', state.colorMode === 'dark');
+                if (lBtn) lBtn.classList.toggle('active', state.colorMode === 'light');
+                syncThemeColor();
+            }
+
+            function flashTheme() {
+                const el = document.createElement('div');
+                el.className = 'theme-flash';
+                document.body.appendChild(el);
+                el.addEventListener('animationend', () => el.remove());
+            }
+
+            function setAccent(id) {
+                state.theme = id;
+                localStorage.setItem('app_theme', id);
+                document.documentElement.setAttribute('data-theme', id);
+                initThemes();
+                flashTheme();
+            }
+
+            function setColorMode(mode) {
+                state.colorMode = mode;
+                localStorage.setItem('app_color_mode', mode);
+                document.documentElement.setAttribute('data-mode', mode);
+                initThemes();
+                flashTheme();
+            }
+
+            function openThemeOverlay() {
+                initThemes();
+                openModal('themeOverlay');
+            }
+
+            function syncThemeColor() {
+                const meta = document.getElementById('themeColorMeta');
+                if (meta) meta.content = state.colorMode === 'light' ? '#f8f8f8' : '#0a0a0a';
+            }
+
             async function renderHomeView() {
                 const wv = document.getElementById('welcomeView');
                 if (!wv)
@@ -5671,7 +5740,10 @@ async function init() {
 
     try {
         const res = await fetch(`${API_BASE_URL}/auth/check`, {
-            headers: { 'Authorization': `Bearer ${session.access_token}`, 'Origin': window.location.origin }
+            headers: {
+                'Authorization': `Bearer ${session.access_token}`,
+                'Content-Type': 'application/json'
+            }
         });
         if (res.ok) { const j = await res.json(); state.isAdmin = j.isAdmin === true; }
     } catch(e) { state.isAdmin = false; }
